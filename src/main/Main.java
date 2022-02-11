@@ -1,10 +1,12 @@
 package main;
+import controleur.*;
+import vue.*;
 
 public class Main {
 
     public static void main(String[] args) {
         Ihm ihm = new Ihm();
-        ControleurJeuNim controleurJeu=new ControleurJeu(ihm);
+        ControleurJeuNim controleurJeuNim=new ControleurJeuNim(ihm);
         controleurJeuNim.jouer();
     }
 }
