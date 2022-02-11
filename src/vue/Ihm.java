@@ -33,7 +33,7 @@ public class Ihm {
                 int numTas = sc.nextInt();
                 if(sc.hasNextInt()){
                     int nbAl = sc.nextInt();
-                    ctl.creerCoupNim(numTas,nbAl); //a modifier en appelant créerCoup(numTas, nbAl)
+                    ctl.setLeCoup(ctl.creerCoupNim(numTas,nbAl));
                 }
             }
             else{
