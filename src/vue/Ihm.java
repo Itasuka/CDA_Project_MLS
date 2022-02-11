@@ -1,7 +1,6 @@
 package vue;
-
-import modele.*;
 import java.util.Scanner;
+import controleur.*;
 
 public class Ihm {
     private final Scanner sc = new Scanner(System.in);
@@ -23,18 +22,18 @@ public class Ihm {
         return sc.next();
     }
 
-    public void etatPartie(Tas lesTas){
-        System.out.println(lesTas);
+    public void etatPartie(String letas){
+        System.out.println(letas);
     }
 
-    public CoupNim leCoup(String joueur){
+    public void leCoup(ControleurJeuNim ctl, String nom){
         while(true){
-            System.out.println(joueur + " à vous de jouer un coup sous la forme 'm n' où m est le tas choisi et n le nombre d'allumettes à retirer dans ce tas.");
+            System.out.println(nom + " à vous de jouer un coup sous la forme 'm n' où m est le tas choisi et n le nombre d'allumettes à retirer dans ce tas.");
             if(sc.hasNextInt()) {
                 int numTas = sc.nextInt();
                 if(sc.hasNextInt()){
                     int nbAl = sc.nextInt();
-                    return new CoupNim(numTas,nbAl);
+                    ctl.creerCoupNim(numTas,nbAl); //a modifier en appelant créerCoup(numTas, nbAl)
                 }
             }
             else{
@@ -43,9 +42,9 @@ public class Ihm {
         }
     }
 
-    public int rejouer(){
+    public int rejouer(String nom){
         while(true){
-            System.out.println("Voulez vous rejouer ? 1 pour rejouer ou 0 sinon.");
+            System.out.println(nom+" as gagné cette partie. Voulez vous rejouer ? 1 pour rejouer ou 0 sinon.");
             if(sc.hasNextInt()){
                 int choix = sc.nextInt();
                 if(choix==1 || choix ==0){
@@ -58,9 +57,11 @@ public class Ihm {
         }
     }
 
-    public void afficherVainqueur(Joueur j){
-        System.out.println("Le gagnant est j.getnom avec un total de " + j.getNbPartiesGagnees() + " parties gagnées.");
+    public void afficherVainqueurTotal(String nom, int nbpartiesg){
+        System.out.println("Le gagnant est "+nom+" avec un total de " + nbpartiesg + " parties gagnées !");
     }
+
+
 
 
 }
