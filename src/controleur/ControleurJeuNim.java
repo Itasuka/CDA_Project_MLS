@@ -48,7 +48,7 @@ public class ControleurJeuNim {
         lesTas.gererCoup(coup);
     }
 
-    public void faireUnTour(Joueur j){
+    private void faireUnTour(Joueur j){
         etatPartie(lesTas);
         boolean flag1 = true;
         while (flag1){
@@ -62,7 +62,7 @@ public class ControleurJeuNim {
         }
     }
 
-    public int rejouer(Joueur j){
+    private int rejouer(Joueur j){
         String nom = j.getNom();
         return leIhm.rejouer(nom);
     }

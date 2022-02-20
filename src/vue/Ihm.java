@@ -17,7 +17,9 @@ public class Ihm {
         System.out.println("Veuillez entrer le nombre de tas >0 avec lequel vous voulez jouer.");
         while (true) {
             if (sc.hasNextInt()) {
-                return sc.nextInt();
+                int nb = sc.nextInt();
+                sc.nextLine();
+                return nb;
             } else {
                 System.out.println("Il faut entrer un nombre.");
                 sc.next();
@@ -27,7 +29,9 @@ public class Ihm {
 
     public String nomJoueur(int num) {
         System.out.println("Veuillez entrer le nom du joueur " + num + ".");
-        return sc.next();
+        String nom = sc.next();
+        sc.nextLine();
+        return nom;
     }
 
     public void etatPartie(String letas) {
@@ -53,6 +57,7 @@ public class Ihm {
             if (sc.hasNextInt()) {
                 int choix = sc.nextInt();
                 if (choix == 1 || choix == 0) {
+                    sc.nextLine();
                     return choix;
                 }
             } else {
