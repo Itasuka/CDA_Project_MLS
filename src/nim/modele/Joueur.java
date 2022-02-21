@@ -2,9 +2,6 @@ package nim.modele;
 
 import java.util.Objects;
 
-/**
- * Created by kahlem .
- */
 public class Joueur {
     private String nom;
     private int nbPartiesGagnees;
