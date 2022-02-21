@@ -3,14 +3,12 @@ package vue;
 import java.util.Scanner;
 
 import controleur.*;
-import modele.CoupInvalideException;
 
 public class Ihm {
     private final Scanner sc = new Scanner(System.in);
-    private ControleurJeuNim ctl;
 
-    public void setControleurJeuNim(ControleurJeuNim controleur) {
-        this.ctl = controleur;
+    public void afficherErreur(String erreur){
+        System.out.println(erreur);
     }
 
     public int nombreTas() {
@@ -38,17 +36,26 @@ public class Ihm {
         System.out.println(letas);
     }
 
-    public void leCoup(String nom) throws CoupInvalideException {
+    public String leCoup(String nom) {
         System.out.println(nom + " à vous de jouer un coup sous la forme 'm n' où m est le tas choisi et n le nombre d'allumettes à retirer dans ce tas.");
-        if (sc.hasNextInt()) {
-            int numTas = sc.nextInt();
-            if (sc.hasNextInt()) {
-                int nbAl = sc.nextInt();
+        while(true){
+            if(sc.hasNextInt()){
+                int numTas = sc.nextInt();
+                if(sc.hasNextInt()){
+                    int nbAl = sc.nextInt();
+                    sc.nextLine();
+                    return String.valueOf(numTas)+String.valueOf(nbAl);
+                }else{
+                    System.out.println("Le coup est invalide, rejouez");
+                    sc.next();
+                    sc.nextLine();
+                }
+            }else{
+                System.out.println("Le coup est invalide, rejouez");
+                sc.next();
                 sc.nextLine();
-                ctl.faireLeCoup(ctl.creerCoupNim(numTas, nbAl));
             }
-        } else {
-            sc.next();
+
         }
     }
 
