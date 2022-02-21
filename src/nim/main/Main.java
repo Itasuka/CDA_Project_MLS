@@ -1,5 +1,7 @@
-package main;
+package nim.main;
 import controleur.*;
+import nim.controleur.ControleurJeuNim;
+import nim.vue.Ihm;
 import vue.*;
 
 public class Main {

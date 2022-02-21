@@ -1,4 +1,4 @@
-package vue;
+package nim.vue;
 
 import java.util.Scanner;
 

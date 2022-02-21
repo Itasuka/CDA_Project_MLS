@@ -1,4 +1,4 @@
-package modele;
+package nim.modele;
 
 import java.util.Objects;
 

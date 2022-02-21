@@ -1,7 +1,10 @@
-package controleur;
+package nim.controleur;
 
-import modele.*;
-import vue.*;
+import nim.modele.CoupInvalideException;
+import nim.modele.CoupNim;
+import nim.modele.Joueur;
+import nim.modele.Tas;
+import nim.vue.Ihm;
 
 public class ControleurJeuNim {
     private Ihm leIhm;
@@ -30,7 +33,7 @@ public class ControleurJeuNim {
         leIhm.etatPartie(lesTas.toString());
     }
 
-    private void faireLeCoup(Joueur j) throws CoupInvalideException{
+    private void faireLeCoup(Joueur j) throws CoupInvalideException {
         String nom = j.getNom();
         String coup = leIhm.leCoup(nom);
         int numTas = Integer.parseInt(coup.substring(0,coup.length()/2));

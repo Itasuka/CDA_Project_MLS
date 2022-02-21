@@ -1,4 +1,4 @@
-package modele;
+package nim.modele;
 
 public class CoupInvalideException extends Exception {
 
