@@ -2,21 +2,26 @@ package puissance.modele;
 
 import java.util.Objects;
 
-/**
- * Created by kahlem .
- */
 public class Joueur {
     private String nom;
     private int nbPartiesGagnees;
-    private String couleur;
+    private JetonCouleur maCouleur;
 
     /**
      * @param nom du joueur à créer
-     * @param couleur du joueur à créer
      */
-    public Joueur(String nom,String couleur) {
+    public Joueur(String nom) {
         this.nom = nom;
-        this.couleur = couleur;
+    }
+
+    /**
+     *
+     * @param nom du joueur à créer
+     * @param couleur de l'équipe du joueur
+     */
+    public Joueur(String nom, String couleur){
+        this.nom = nom;
+        this.maCouleur = new JetonCouleur(couleur);
     }
 
     /**
@@ -32,11 +37,7 @@ public class Joueur {
     public int getNbPartiesGagnees() {
         return nbPartiesGagnees;
     }
-
-    /**
-     * @return the couleur
-     */
-    public String getCouleur(){ return couleur; }
+    public JetonCouleur getMaCouleur() {return maCouleur;}
 
     /**
      * incrémente le nombre de parties gagnées par le joueur
