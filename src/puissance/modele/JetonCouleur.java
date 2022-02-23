@@ -3,9 +3,10 @@ package puissance.modele;
 public class JetonCouleur {
     private String nomCouleur;
     private String couleur;
+    private String leJeton = "●" + this.reset;
 
     public JetonCouleur(String nomCouleur){
-        this.nomCouleur = nomCouleur + reset;
+        this.nomCouleur = nomCouleur;
         if (nomCouleur.equals("R")){
             this.couleur = rouge;
         }
@@ -26,6 +27,6 @@ public class JetonCouleur {
 
     @Override
     public String toString(){
-        return this.couleur + this.nomCouleur;
+        return this.couleur + this.leJeton;
     }
 }
