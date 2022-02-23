@@ -1,16 +1,27 @@
-package nim.modele;
+package puissance.modele;
 
 import java.util.Objects;
 
 public class Joueur {
     private String nom;
     private int nbPartiesGagnees;
+    private JetonCouleur maCouleur;
 
     /**
      * @param nom du joueur à créer
      */
     public Joueur(String nom) {
         this.nom = nom;
+    }
+
+    /**
+     *
+     * @param nom du joueur à créer
+     * @param couleur de l'équipe du joueur
+     */
+    public Joueur(String nom, String couleur){
+        this.nom = nom;
+        this.maCouleur = new JetonCouleur(couleur);
     }
 
     /**
@@ -26,6 +37,7 @@ public class Joueur {
     public int getNbPartiesGagnees() {
         return nbPartiesGagnees;
     }
+    public JetonCouleur getMaCouleur() {return maCouleur;}
 
     /**
      * incrémente le nombre de parties gagnées par le joueur
@@ -48,4 +60,3 @@ public class Joueur {
         return Objects.hash(nom, nbPartiesGagnees);
     }
 }
-
