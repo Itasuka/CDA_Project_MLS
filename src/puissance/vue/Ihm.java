@@ -40,7 +40,7 @@ public class Ihm {
     }
 
     public int rejouer(String nom) {
-        System.out.println(nom + " as gagné cette partie. Voulez vous rejouer ? 1 pour rejouer ou 0 sinon.");
+        System.out.println(nom + " a gagné cette partie. Voulez vous rejouer ? 1 pour rejouer ou 0 sinon.");
         while (true) {
             if (sc.hasNextInt()) {
                 int choix = sc.nextInt();

@@ -84,7 +84,7 @@ public class ControleurPuissance {
             while (true) {
                 faireUnTour(jCourant);
                 if (laGrille.partieTerminee()) {
-                    leIhm.etatPartie();
+                    etatPartie();
                     Joueur gagnant = jCourant;
                     gagnant.gagnePartie();
                     int recommencer = rejouer(gagnant);
