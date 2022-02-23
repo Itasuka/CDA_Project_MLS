@@ -12,17 +12,15 @@ public class Grille {
     public void initialiser(){
         for (int i=0; i<tailleGrille; i++){
             for (int j=0; j<tailleGrille; j++){
-                laGrille[i][j] = " ";
+                laGrille[i][j] = "_";
             }
         }
     }
 
     public boolean grillePleine(){
-        for (String[] ligne : laGrille){
-            for (String cases : ligne){
-                if (cases.equals(" ")){
-                    return false;
-                }
+        for (int i=0; i<tailleGrille; i++){
+            if (laGrille[0][i].equals("_")){
+                return false;
             }
         }
         return true;
@@ -31,7 +29,7 @@ public class Grille {
 
 
     public boolean chercheLaVictoire (int lDep, int colDep, int lMove, int colMove){
-        String couleur = " ";
+        String couleur = "_";
         int compteur = 0;
         while (lDep>=0 && lDep<tailleGrille && colDep>=0 && colDep<tailleGrille){
             if (laGrille[lDep][colDep].equals(couleur)){
@@ -41,7 +39,7 @@ public class Grille {
                 compteur = 1;
                 couleur = laGrille[lDep][colDep];
             }
-            if(compteur>=4 && !couleur.equals(" ")){
+            if(compteur>=4 && !couleur.equals("_")){
                 return true;
             }
             lDep+=lMove;
@@ -90,11 +88,11 @@ public class Grille {
 
 
     public void gererCoup(int colonne, JetonCouleur couleur) throws ColonneInvalideException {
-        if (colonne<1 || colonne>7 || !laGrille[0][colonne-1].equals(" ")){
+        if (colonne<1 || colonne>tailleGrille || !laGrille[0][colonne-1].equals("_")){
             throw new ColonneInvalideException("La colonne indiquée est invalide !");
         }
         for (int i=tailleGrille-1; i>=0; i--){
-            if (laGrille[i][colonne-1].equals(" ")){
+            if (laGrille[i][colonne-1].equals("_")){
                 laGrille[i][colonne-1] = couleur.toString();
                 break;
             }

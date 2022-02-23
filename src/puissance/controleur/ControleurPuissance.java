@@ -99,6 +99,7 @@ public class ControleurPuissance {
                     }
                 }
                 else if (laGrille.grillePleine()){
+                    leIhm.etatPartie();
                     int recommencer = leIhm.rejouerEgalite();
                     if (recommencer == 1) {
                         rejouer = true;

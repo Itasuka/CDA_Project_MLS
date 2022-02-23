@@ -1,6 +1,5 @@
 package puissance.main;
 import puissance.controleur.ControleurPuissance;
-import puissance.modele.JetonCouleur;
 import puissance.vue.Ihm;
 
 public class Main {
