@@ -27,65 +27,37 @@ public class Grille {
     }
 
 
-
-    public boolean chercheLaVictoire (int lDep, int colDep, int lMove, int colMove){
-        String couleur = "_";
-        int compteur = 0;
-        while (lDep>=0 && lDep<tailleGrille && colDep>=0 && colDep<tailleGrille){
-            if (laGrille[lDep][colDep].equals(couleur)){
-                compteur++;
-            }
-            else{
-                compteur = 1;
-                couleur = laGrille[lDep][colDep];
-            }
-            if(compteur>=4 && !couleur.equals("_")){
-                return true;
-            }
-            lDep+=lMove;
-            colDep+=colMove;
-        }
-        return false;
-    }
-
-    public boolean partieTerminee (){
-        //Horizontale
-        for (int i=0; i<tailleGrille; i++){
-            if (chercheLaVictoire(i,0,0,1)){
-                return true;
-            }
-        }
-        //Verticale
-        for(int i=0; i<tailleGrille; i++){
-            if (chercheLaVictoire(0,i,1,0)){
-                return true;
-            }
-        }
-        //Diagonale HautGauche --> BasDroit
-        for(int i=0; i<tailleGrille-3; i++){
-            if (chercheLaVictoire(i,0,1,1)){
-                return true;
-            }
-        }
-        for(int i=1; i<tailleGrille-3; i++){
-            if (chercheLaVictoire(0,i,1,1)){
-                return true;
-            }
-        }
-        //Diagonale BasGauche --> HautDroit
-        for(int i=3; i<tailleGrille; i++){
-            if (chercheLaVictoire(i,0,-1,1)){
-                return true;
-            }
-        }
-        for(int i=1; i<tailleGrille-3; i++){
-            if (chercheLaVictoire(tailleGrille,i,-1,1)){
-                return true;
+    public boolean partieTerminee(int lD, int cD){
+        int res = 1;
+        for (int i=-1; i<=1; i++){
+            for (int j=-1; j<=1; j++){
+                res += chercheLaVictoire(lD+i,cD+j,i,j) +
+                        chercheLaVictoire(lD-i,cD-j,-i,-j);
+                if (res>=4){
+                    return true;
+                }
+                else{
+                    res = 1;
+                }
             }
         }
         return false;
     }
 
+    public int chercheLaVictoire(int lD,int cD,int lM,int cM){
+        if (lM==0 && cM==0){
+            return 0;
+        }
+        if(lD<0 || lD>tailleGrille-1 || cD<0 || cD>tailleGrille-1){
+            return 0;
+        }
+        if (laGrille[lD][cD].equals(laGrille[lD - lM][cD - cM])){
+            return 1 + chercheLaVictoire(lD+lM,cD+cM,lM,cM);
+        }
+        else{
+            return 0;
+        }
+    }
 
     public void gererCoup(int colonne, JetonCouleur couleur) throws ColonneInvalideException {
         if (colonne<1 || colonne>tailleGrille || !laGrille[0][colonne-1].equals("_")){
@@ -94,6 +66,8 @@ public class Grille {
         for (int i=tailleGrille-1; i>=0; i--){
             if (laGrille[i][colonne-1].equals("_")){
                 laGrille[i][colonne-1] = couleur.toString();
+                couleur.setColonne(colonne-1);
+                couleur.setLigne(i);
                 break;
             }
         }

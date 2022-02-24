@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Joueur {
     private String nom;
     private int nbPartiesGagnees;
-    private JetonCouleur maCouleur;
+    private JetonCouleur monJeton;
 
     /**
      * @param nom du joueur à créer
@@ -21,7 +21,7 @@ public class Joueur {
      */
     public Joueur(String nom, String couleur){
         this.nom = nom;
-        this.maCouleur = new JetonCouleur(couleur);
+        this.monJeton = new JetonCouleur(couleur);
     }
 
     /**
@@ -37,7 +37,7 @@ public class Joueur {
     public int getNbPartiesGagnees() {
         return nbPartiesGagnees;
     }
-    public JetonCouleur getMaCouleur() {return maCouleur;}
+    public JetonCouleur getMonJeton() {return monJeton;}
 
     /**
      * incrémente le nombre de parties gagnées par le joueur

@@ -1,12 +1,12 @@
 package puissance.modele;
 
 public class JetonCouleur {
-    private String nomCouleur;
     private String couleur;
     private String leJeton = "●" + this.reset;
+    private int ligne;
+    private int colonne;
 
     public JetonCouleur(String nomCouleur){
-        this.nomCouleur = nomCouleur;
         if (nomCouleur.equals("R")){
             this.couleur = rouge;
         }
@@ -18,7 +18,10 @@ public class JetonCouleur {
         }
     }
 
-    public String getNomCouleur(){return nomCouleur;}
+    public int getLigne(){return ligne;}
+    public int getColonne(){return colonne;}
+    public void setLigne(int ligne){ this.ligne = ligne; }
+    public void setColonne(int colonne){ this.colonne = colonne; }
 
     public final String reset = "\u001B[0m";
     public final String rouge = "\u001B[31m";

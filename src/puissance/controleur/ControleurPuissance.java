@@ -31,12 +31,12 @@ public class ControleurPuissance {
 
     private void faireLeCoup(Joueur j) throws ColonneInvalideException {
         String nom = j.getNom();
-        JetonCouleur couleur = j.getMaCouleur();
+        JetonCouleur couleur = j.getMonJeton();
         laGrille.gererCoup(leIhm.leCoup(nom, couleur.toString()), couleur);
     }
 
 
-    private void faireUnTour(Joueur j) {
+    private JetonCouleur faireUnTour(Joueur j) {
         etatPartie();
         boolean flag1 = true;
         while (flag1) {
@@ -48,6 +48,7 @@ public class ControleurPuissance {
                 leIhm.afficherErreur(e.getMessage());
             }
         }
+        return j.getMonJeton();
     }
 
     private int rejouer(Joueur j) {
@@ -82,8 +83,8 @@ public class ControleurPuissance {
             rejouer = false;
             jCourant = j1;
             while (true) {
-                faireUnTour(jCourant);
-                if (laGrille.partieTerminee()) {
+                JetonCouleur jetonCourant = faireUnTour(jCourant);
+                if (laGrille.partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())) {
                     etatPartie();
                     Joueur gagnant = jCourant;
                     gagnant.gagnePartie();
