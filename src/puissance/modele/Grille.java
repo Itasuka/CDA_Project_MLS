@@ -75,6 +75,10 @@ public class Grille {
     @Override
     public String toString(){
         String s = "";
+        for (int i=1; i<=tailleGrille; i++){
+            s+= " "+i;
+        }
+        s+= "\n";
         for (String[] ligne : laGrille){
             s+="|";
             for (String cases : ligne){
