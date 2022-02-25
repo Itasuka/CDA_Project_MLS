@@ -2,7 +2,6 @@ package nim.vue;
 
 import java.util.Scanner;
 
-import nim.controleur.*;
 
 public class Ihm {
     private final Scanner sc = new Scanner(System.in);

@@ -8,13 +8,6 @@ public class Joueur {
     private JetonCouleur monJeton;
 
     /**
-     * @param nom du joueur à créer
-     */
-    public Joueur(String nom) {
-        this.nom = nom;
-    }
-
-    /**
      *
      * @param nom du joueur à créer
      * @param couleur de l'équipe du joueur
