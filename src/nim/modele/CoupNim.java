@@ -12,8 +12,7 @@ public class CoupNim {
 
     /**
      * Constructeur permettant de créer un coup
-     *
-     * @param numeroTas        numéro de la ligne
+     * @param numeroTas numéro de la ligne
      * @param nbAllumettes nombre d'allumettes à enlever
      */
     public CoupNim(int numeroTas, int nbAllumettes) {
@@ -22,6 +21,7 @@ public class CoupNim {
     }
 
     /**
+     * Fonction retournant le numéro du tas
      * @return the ligne
      */
     public int getNumeroTas() {
@@ -29,6 +29,7 @@ public class CoupNim {
     }
 
     /**
+     * Fonction retournant le nombre d'allumettes
      * @return the nbAllumettes
      */
     public int getNbAllumettes() {

@@ -6,7 +6,7 @@ public class Joueur {
     private String nom;
     private int nbPartiesGagnees;
 
-    /**
+    /** Constructeur
      * @param nom du joueur à créer
      */
     public Joueur(String nom) {
@@ -14,6 +14,7 @@ public class Joueur {
     }
 
     /**
+     * fonction retournant le nom du joueur
      * @return the nom
      */
     public String getNom() {
@@ -21,6 +22,7 @@ public class Joueur {
     }
 
     /**
+     * fonction retournant le nombre de parties gagnées
      * @return the nbPartiesGagnees
      */
     public int getNbPartiesGagnees() {

@@ -17,7 +17,7 @@ public class Tas  {
     private int[] lesTas;
 
     /**
-     * crée un ensemble de nbTas tas avec 0 allumettes dans chaque tas
+     * Fonctionn créant un ensemble de nbTas tas avec 0 allumettes dans chaque tas
      * @param nbTas le nombre de tas de la partie
      */
     public Tas(int nbTas){
@@ -25,7 +25,7 @@ public class Tas  {
     }
 
     /**
-     * ajoute les allumettes dans chacun des tas de la manière suivante :
+     * Fonction ajoutant les allumettes dans chacun des tas de la manière suivante :
      * dans le ième tas, on place 2*i - 1 allumettes.
      */
     public void initialiser(){
@@ -35,15 +35,16 @@ public class Tas  {
     }
 
     /**
-     * Retourne vrai si la partie est terminée et faux sinon
-     * @return
+     * Fonction retournant vrai si la partie est terminée et faux sinon
+     * @return un boolean selon si la partie est terminée ou non
      */
     public boolean partieTerminee() {
         return nbAllumette() == 0;
     }
 
     /**
-     * Nombre d'allumettes par tas
+     * Fonction retournant le nombre d'allumettes selon un tas
+     * @param numeroTas le numero du tas dont on veut savoir le nombre d'allumettes
      */
     public int nbAllumettes(int numeroTas) {
         return lesTas[numeroTas - 1];
@@ -61,7 +62,7 @@ public class Tas  {
     }
 
     /**
-     * retourne l'état de la partie sous forme d'une chaîne de caractères constituées des batons correspondant au nombre d'allumettes pour chaque tas.
+     * Fonction retournant l'état de la partie sous forme d'une chaîne de caractères constituées des batons correspondant au nombre d'allumettes pour chaque tas.
      *
      */
     @Override
@@ -77,8 +78,8 @@ public class Tas  {
     }
 
     /**
-     * modifie l'état de la partie en fonction du coup passé en paramètre
-     * @param coup
+     * Fonction modifiant l'état de la partie en fonction du coup passé en paramètre
+     * @param coup le coup a effectué
      * @throws CoupInvalideException si le coup est invalide
      */
     public void gererCoup(CoupNim coup) throws CoupInvalideException {
