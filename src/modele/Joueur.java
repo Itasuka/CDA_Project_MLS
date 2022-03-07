@@ -1,20 +1,23 @@
-package nim.modele;
+package modele;
 
 import java.util.Objects;
 
 public class Joueur {
     private String nom;
     private int nbPartiesGagnees;
+    private JetonCouleur monJeton;
 
-    /** Constructeur
+    /**
+     *
      * @param nom du joueur à créer
+     * @param couleur de l'équipe du joueur
      */
-    public Joueur(String nom) {
+    public Joueur(String nom, String couleur){
         this.nom = nom;
+        this.monJeton = new JetonCouleur(couleur);
     }
 
     /**
-     * fonction retournant le nom du joueur
      * @return the nom
      */
     public String getNom() {
@@ -22,12 +25,12 @@ public class Joueur {
     }
 
     /**
-     * fonction retournant le nombre de parties gagnées
      * @return the nbPartiesGagnees
      */
     public int getNbPartiesGagnees() {
         return nbPartiesGagnees;
     }
+    public JetonCouleur getMonJeton() {return monJeton;}
 
     /**
      * incrémente le nombre de parties gagnées par le joueur
@@ -50,4 +53,3 @@ public class Joueur {
         return Objects.hash(nom, nbPartiesGagnees);
     }
 }
-

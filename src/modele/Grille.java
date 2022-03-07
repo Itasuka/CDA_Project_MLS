@@ -1,4 +1,4 @@
-package puissance.modele;
+package modele;
 
 public class Grille {
     private int tailleGrille;
@@ -59,9 +59,9 @@ public class Grille {
         }
     }
 
-    public void gererCoup(int colonne, JetonCouleur couleur) throws ColonneInvalideException {
+    public void gererCoup(int colonne, JetonCouleur couleur) throws CoupInvalideException {
         if (colonne<1 || colonne>tailleGrille || !laGrille[0][colonne-1].equals("_")){
-            throw new ColonneInvalideException("La colonne indiquée est invalide !");
+            throw new CoupInvalideException("La colonne indiquée est invalide !");
         }
         for (int i=tailleGrille-1; i>=0; i--){
             if (laGrille[i][colonne-1].equals("_")){

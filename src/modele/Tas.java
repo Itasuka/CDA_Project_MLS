@@ -1,5 +1,8 @@
-package nim.modele;
+package modele;
 
+
+import modele.CoupInvalideException;
+import modele.CoupNim;
 
 /**
  * <p>La classe Tas représente l'état courant de la partie

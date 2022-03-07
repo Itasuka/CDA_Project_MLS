@@ -1,6 +1,7 @@
-package puissance.vue;
+package vue;
 
-import puissance.controleur.ControleurPuissance;
+import controleur.Controleur;
+import controleur.ControleurPuissance;
 
 import java.util.Scanner;
 
@@ -10,7 +11,7 @@ public class Ihm {
 
     public void setControleurPuissance(ControleurPuissance controleur){this.ct = controleur;}
 
-    public void afficherErreur(String erreur){
+    public void afficher(String erreur){
         System.out.println(erreur);
     }
 
@@ -22,7 +23,7 @@ public class Ihm {
     }
 
     public void etatPartie() {
-        System.out.println(ct.getLaGrille());
+        System.out.println(ct.etatPartie());
     }
 
     public int leCoup(String nom, String couleur) {

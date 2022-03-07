@@ -1,4 +1,4 @@
-package puissance.modele;
+package modele;
 
 public class JetonCouleur {
     private String couleur;

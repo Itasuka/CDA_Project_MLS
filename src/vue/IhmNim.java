@@ -1,9 +1,9 @@
-package nim.vue;
+package vue;
 
 import java.util.Scanner;
 
 
-public class Ihm {
+public class IhmNim {
     private final Scanner sc = new Scanner(System.in);
 
     /**

@@ -1,4 +1,4 @@
-package nim.modele;
+package modele;
 
 /**
  * Created by kahlem .
