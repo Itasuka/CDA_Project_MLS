@@ -6,6 +6,7 @@ public class Joueur {
     private String nom;
     private int nbPartiesGagnees;
     private JetonCouleur monJeton;
+    private int nbRotations=4;
 
     /**
      *
@@ -39,6 +40,9 @@ public class Joueur {
         nbPartiesGagnees++;
     }
 
+    public int getNbRotations() { return nbRotations; }
+
+    public void setNbRotations(int r) { nbRotations=r; }
 
     @Override
     public boolean equals(Object o) {

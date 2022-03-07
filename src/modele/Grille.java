@@ -1,5 +1,7 @@
 package modele;
 
+import nim.modele.CoupInvalideException;
+
 public class Grille {
     private int tailleGrille;
     private String[][] laGrille;
@@ -72,6 +74,33 @@ public class Grille {
             }
         }
     }
+
+    public Grille pivoterAGauche() throws CoupInvalideException {
+        Grille nvgrille=new Grille(tailleGrille);
+        for (int ligne=tailleGrille-1; ligne<0; ligne--){
+            for (int colonne=tailleGrille-1; ligne<0; ligne--){
+                if (!laGrille[ligne][colonne-1].equals("_")){
+                    JetonCouleur jeton=laGrille[ligne][colonne-1];
+                    nvgrille.gererCoup(tailleGrille-ligne-1,jeton);
+                }
+            }
+        }
+        return nvgrille;
+    }
+
+
+    public void pivoterADroite() throws CoupInvalideException {
+        Grille nvgrille=new Grille(tailleGrille);
+        for (int ligne=tailleGrille-1; ligne<0; ligne--){
+            for (int colonne=0; ligne>=tailleGrille; ligne++){
+                if (!laGrille[ligne][colonne-1].equals("_")){
+                    JetonCouleur jeton=laGrille[ligne][colonne-1];
+                    nvgrille.gererCoup(ligne,jeton);
+                }
+            }
+        }
+
+
     @Override
     public String toString(){
         String s = "";
