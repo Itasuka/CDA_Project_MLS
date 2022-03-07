@@ -21,6 +21,34 @@ public class Ihm {
         return nom;
     }
 
+    public int placerOuRotation(String nom){
+        while(true){
+            System.out.println(nom + "à vous de jouer. Voulez-vous placer un jeton ou effectuer une rotation ? 0 pour placer le jeton, 1 pour rotation à gauche ou 2 pour rotation à droite.");
+            if(sc.hasNextInt()){
+                int choix = sc.nextInt();
+                sc.nextLine();
+                return choix;
+            }else{
+                System.out.println("Votre choix est invalide !");
+                sc.nextLine();
+            }
+        }
+    }
+
+    public int rotation(){
+        while(true){
+            System.out.println("Voulez-vous jouer à puissance 4 avec le mode rotation? 0 pour non, 1 pour oui.");
+            if(sc.hasNextInt()){
+                int choix = sc.nextInt();
+                sc.nextLine();
+                return choix;
+            }else{
+                System.out.println("Votre choix est invalide !");
+                sc.nextLine();
+            }
+        }
+    }
+
     public void etatPartie() {
         System.out.println(ct.getLaGrille());
     }
