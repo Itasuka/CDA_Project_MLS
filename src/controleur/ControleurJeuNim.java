@@ -1,21 +1,41 @@
 package controleur;
 
-import modele.CoupInvalideException;
-import modele.CoupNim;
-import modele.JoueurNim;
-import modele.Tas;
-import vue.IhmNim;
+import modele.*;
+import vue.Ihm;
 
-public class ControleurJeuNim {
-    private IhmNim leIhmNim;
+public class ControleurJeuNim extends Controleur{
     private Tas lesTas;
-    private JoueurNim j1;
-    private JoueurNim j2;
-    private JoueurNim jCourant;
+    private int nbTas;
 
-    public ControleurJeuNim(IhmNim ihmNim) {
-        this.leIhmNim = ihmNim;
+    public void setNbTas(int nb){ this.nbTas=nb;}
+
+    public ControleurJeuNim(Ihm ihm) {
+        super(ihm);
     }
+
+    public void init(){
+        setNbTas(creerPartie());
+    }
+
+    public boolean partieGagnee(Joueur j){
+        return lesTas.partieTerminee();
+    }
+
+    public boolean finPartie(Joueur j){
+        etatPartie(lesTas);
+        j.gagnePartie();
+        if (rejouer(j)==1){
+            recreerPartie();
+            return true;
+        }
+        afficherVainqueurTotal(getJ1(),getJ2());
+        return false;
+    }
+
+    public void recreerPartie(){
+        recreerPartie(nbTas);
+    }
+
 
     /**
      * Fonction permettant d'initialiser la partie
@@ -24,12 +44,12 @@ public class ControleurJeuNim {
     private int creerPartie() {
         int nbTas = 0;
         while (nbTas <= 0) {
-            nbTas = leIhmNim.nombreTas();
+            nbTas = getLeIhm().nombreTas();
         }
         lesTas = new Tas(nbTas);
         lesTas.initialiser();
-        j1 = new JoueurNim(leIhmNim.nomJoueur(1));
-        j2 = new JoueurNim(leIhmNim.nomJoueur(2));
+        setJ1(new Joueur(getLeIhm().nomJoueur(1)));
+        setJ2(new Joueur(getLeIhm().nomJoueur(2)));
         return nbTas;
     }
 
@@ -38,7 +58,7 @@ public class ControleurJeuNim {
      * @param lesTas la partie en cours
      */
     private void etatPartie(Tas lesTas) {
-        leIhmNim.etatPartie(lesTas.toString());
+        getLeIhm().etatPartie(lesTas.toString());
     }
 
     /**
@@ -46,9 +66,9 @@ public class ControleurJeuNim {
      * @param j le joueur qui va jouer
      * @throws CoupInvalideException si le coup est invalide
      */
-    private void faireLeCoup(JoueurNim j) throws CoupInvalideException {
+    private void faireLeCoup(Joueur j) throws CoupInvalideException {
         String nom = j.getNom();
-        String coup = leIhmNim.leCoup(nom);
+        String coup = getLeIhm().leCoup(nom);
         int numTas = Integer.parseInt(coup.substring(0,coup.length()/2));
         int nbAl = Integer.parseInt(coup.substring(coup.length()/2));
         lesTas.gererCoup(creerCoupNim(numTas, nbAl));
@@ -68,7 +88,7 @@ public class ControleurJeuNim {
      * Fonction permettant de faire un tour au joueur
      * @param j le joueur qui va jouer
      */
-    private void faireUnTour(JoueurNim j) {
+    public void faireUnTour(Joueur j) {
         etatPartie(lesTas);
         boolean flag1 = true;
         while (flag1) {
@@ -77,7 +97,7 @@ public class ControleurJeuNim {
                 flag1 = false;
             }
             catch (CoupInvalideException e){
-                leIhmNim.afficherErreur(e.getMessage());
+                getLeIhm().afficherErreur(e.getMessage());
             }
 
         }
@@ -88,9 +108,9 @@ public class ControleurJeuNim {
      * @param j le nom du vainqueur
      * @return 1 si les joueurs veulent rejouer, 0 sinon
      */
-    private int rejouer(JoueurNim j) {
+    private int rejouer(Joueur j) {
         String nom = j.getNom();
-        return leIhmNim.rejouer(nom);
+        return getLeIhm().rejouer(nom);
     }
 
     /**
@@ -108,54 +128,17 @@ public class ControleurJeuNim {
      * @param j1 le joueur 1
      * @param j2 le joueur 2
      */
-    private void afficherVainqueurTotal(JoueurNim j1, JoueurNim j2) {
+    private void afficherVainqueurTotal(Joueur j1, Joueur j2) {
         if (j1.getNbPartiesGagnees() > j2.getNbPartiesGagnees()) {
             String nom = j1.getNom();
             int nbpartiesg = j1.getNbPartiesGagnees();
-            leIhmNim.afficherVainqueurTotal(nom, nbpartiesg);
+            getLeIhm().afficherVainqueurTotal(nom, nbpartiesg);
         } else if (j1.getNbPartiesGagnees() < j2.getNbPartiesGagnees()) {
             String nom = j2.getNom();
             int nbpartiesq = j2.getNbPartiesGagnees();
-            leIhmNim.afficherVainqueurTotal(nom, nbpartiesq);
+            getLeIhm().afficherVainqueurTotal(nom, nbpartiesq);
         } else {
-            leIhmNim.egalite(j1.getNbPartiesGagnees());
+            getLeIhm().egalite(j1.getNbPartiesGagnees());
         }
     }
-
-
-    /**
-     * Fonction permettant de jouer des parties jusqu'à ce qu'on ne veuille plus jouer
-     */
-    public void jouer() {
-        boolean rejouer = true;
-        int nbTas = creerPartie();
-        while (rejouer) {
-            rejouer = false;
-            jCourant = j1;
-            while (true) {
-                faireUnTour(jCourant);
-                if (lesTas.partieTerminee()) {
-                    JoueurNim gagnant = jCourant;
-                    gagnant.gagnePartie();
-                    int recommencer = rejouer(gagnant);
-                    if (recommencer == 1) {
-                        rejouer = true;
-                        recreerPartie(nbTas);
-                        break;
-                    } else {
-                        leIhmNim.afficherScore(j1.getNom(), j1.getNbPartiesGagnees(), j2.getNom(), j2.getNbPartiesGagnees());
-                        afficherVainqueurTotal(j1, j2);
-                        break;
-                    }
-                } else if (jCourant == j1) {
-                    jCourant = j2;
-                } else {
-                    jCourant = j1;
-                }
-            }
-
-        }
-    }
-
-
 }

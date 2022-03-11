@@ -5,9 +5,18 @@ import modele.Joueur;
 import vue.Ihm;
 
 public abstract class Controleur {
+    private Ihm leIhm;
     private Joueur j1;
     private Joueur j2;
     private Joueur jCourant;
+
+    public Controleur(Ihm ihm){
+        this.leIhm = ihm;
+    }
+
+    public Ihm getLeIhm(){return this.leIhm;}
+    public Joueur getJ1(){return j1;}
+    public Joueur getJ2(){return j2;}
 
     public void setJ1(Joueur j){
         this.j1 = j;
@@ -15,28 +24,12 @@ public abstract class Controleur {
     public void setJ2(Joueur j){
         this.j2 = j;
     }
-    public void setJCourant (Joueur j){
-        this.jCourant = j;
-    }
 
     public abstract void init();
-    public abstract boolean faireUnTour(Joueur j);
-    public boolean partieGagnee(Joueur j){
-        etatPartie();
-        j.gagnePartie();
-        if (rejouer(j)==1){
-            recreerPartie();
-            return true;
-        }
-        else{
-            afficherFin(j1,j2);
-            return false;
-        }
-    }
-    public abstract int rejouer(Joueur j);
+    public abstract void faireUnTour(Joueur j);
+    public abstract boolean partieGagnee(Joueur j);
+    public abstract boolean finPartie(Joueur j);
     public abstract void recreerPartie();
-    public abstract void afficherFin(Joueur j1, Joueur j2);
-    public abstract String etatPartie();
 
     public void jouer() {
         init();
@@ -44,8 +37,9 @@ public abstract class Controleur {
         while (rejouer){
             jCourant = j1;
             while (true){
-                if (faireUnTour(jCourant)) {
-                    rejouer = partieGagnee(jCourant);
+                faireUnTour(jCourant);
+                if (partieGagnee(jCourant)) {
+                    rejouer = finPartie(jCourant);
                     break;
                 }
                 else if (jCourant == j1){

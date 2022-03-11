@@ -17,6 +17,9 @@ public class Joueur {
         this.nom = nom;
         this.monJeton = new JetonCouleur(couleur);
     }
+    public Joueur(String nom){
+        this.nom = nom;
+    }
 
     /**
      * @return the nom
