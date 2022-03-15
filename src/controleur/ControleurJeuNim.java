@@ -2,10 +2,16 @@ package controleur;
 
 import modele.*;
 import vue.Ihm;
+import vue.IhmNim;
 
 public class ControleurJeuNim extends Controleur{
     private Tas lesTas;
     private int nbTas;
+
+    @Override
+    public IhmNim getLeIhm() {
+        return (IhmNim) this.leIhm;
+    }
 
     public void setNbTas(int nb){ this.nbTas=nb;}
 

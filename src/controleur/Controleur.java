@@ -5,7 +5,7 @@ import modele.Joueur;
 import vue.Ihm;
 
 public abstract class Controleur {
-    private Ihm leIhm;
+    protected Ihm leIhm;
     private Joueur j1;
     private Joueur j2;
     private Joueur jCourant;
@@ -14,7 +14,7 @@ public abstract class Controleur {
         this.leIhm = ihm;
     }
 
-    public Ihm getLeIhm(){return this.leIhm;}
+    public abstract Ihm getLeIhm();
     public Joueur getJ1(){return j1;}
     public Joueur getJ2(){return j2;}
 

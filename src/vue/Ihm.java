@@ -4,8 +4,8 @@ import controleur.ControleurPuissance;
 
 import java.util.Scanner;
 
-public class Ihm {
-    private final Scanner sc = new Scanner(System.in);
+public abstract class Ihm {
+    protected static final Scanner sc = new Scanner(System.in);
 
     /**
      * Fonction permettant d'afficher le message de l'erreur
@@ -31,7 +31,7 @@ public class Ihm {
      * Fonction permettant de savoir le choix du jeu
      * @return 0 pour Nim, 1 pour puissance4
      */
-    public int choixJeu() {
+    public static int choixJeu() {
         System.out.println("A quel jeu voulez-vous jouer ? 0 pour le jeu de Nim, 1 pour puissance 4.");
         while (true) {
             if (sc.hasNextInt()) {
@@ -46,103 +46,6 @@ public class Ihm {
         }
     }
 
-    /**
-     * P4 : Fonction permettant de savoir le type de coup entre rotation à droite/gauche ou placer un jeton
-     * @param nom le nom du joueur qui va jouer
-     * @return 0 pour placer le jeton, 1 pour rotation à gauche, 2 pour rotation à droite
-     */
-    public int placerOuRotation(String nom) {
-        while (true) {
-            System.out.println(nom + "à vous de jouer. Voulez-vous placer un jeton ou effectuer une rotation ? 0 pour placer le jeton, 1 pour rotation à gauche ou 2 pour rotation à droite.");
-            if (sc.hasNextInt()) {
-                int choix = sc.nextInt();
-                if (choix == 1 || choix == 2 || choix == 0) {
-                    sc.nextLine();
-                    return choix;
-                }
-            }
-            System.out.println("Votre choix est invalide : il faut entrer 0, 1 ou 2 !");
-            sc.nextLine();
-        }
-    }
-
-    /**
-     * P4 : Fonction permettant de savoir si les joueurs souhaitent jouer avec la rotation ou non
-     * @return 0 pour sans rotations, 1 pour avec rotations
-     */
-    public int rotation() {
-        while (true) {
-            System.out.println("Voulez-vous jouer à puissance 4 avec le mode rotation? 0 pour non, 1 pour oui.");
-            if (sc.hasNextInt()) {
-                int choix = sc.nextInt();
-                if (choix == 0 || choix == 1) {
-                    sc.nextLine();
-                    return choix;
-                }
-            } else {
-                System.out.println("Votre choix est invalide : il faut entrer 0 ou 1 !");
-                sc.nextLine();
-            }
-        }
-    }
-
-    /**
-     * NIM : Fonction permettant de savoir si les joueurs veulent jouer à Nim avec une contrainte sur le nombre d'allumettes
-     * @return 1 pour avec contrainte, 0 pour sans contrainte
-     */
-    public int choixContrainte() {
-        System.out.println("Voulez-vous ajouter une contrainte sur le nombre d'allumettes à retirer ? 1 pour oui, 0 sinon");
-        while (true) {
-            if (sc.hasNextInt()) {
-                int choixContrainte = sc.nextInt();
-                if (choixContrainte == 1 || choixContrainte == 0) {
-                    sc.nextLine();
-                    return choixContrainte;
-                }
-            } else {
-                System.out.println("Votre choix est invalide : il faut entrer 0 ou 1 !");
-                sc.nextLine();
-            }
-        }
-    }
-
-    /**
-     * NIM : Fonction permettant de connaitre le nombre d'allumettes pour la contrainte
-     * @return le nombre d'allumettes pour la contrainte
-     */
-    public int nombreMaxAllumettes() {
-        System.out.println("Veuillez entrer le nombre maximum d'allumettes que vous pourrez retirer");
-        while (true) {
-            if (sc.hasNextInt()) {
-                int nbMax = sc.nextInt();
-                sc.nextLine();
-                return nbMax;
-            } else {
-                System.out.println("Il faut entrer un nombre.");
-                sc.nextLine();
-            }
-        }
-    }
-
-    /**
-     * P4 : Fonction permettant de demander et récupérer le coup
-     * @param nom le nom du joueur
-     * @param couleur le string du jeton
-     * @return la colonne
-     */
-    public int leCoup(String nom, String couleur) {
-        while (true) {
-            System.out.println(nom + " de l'équipe " + couleur + " à vous de jouer, indiquez dans qu'elle colonne vous voulez placer votre jeton");
-            if (sc.hasNextInt()) {
-                int taille = sc.nextInt();
-                sc.nextLine();
-                return taille;
-            } else {
-                System.out.println("La colonne indiquée est invalide !");
-                sc.nextLine();
-            }
-        }
-    }
 
     /**
      * Fonction permettant de demander si les joueurs veulent rejouer
@@ -212,23 +115,6 @@ public class Ihm {
         }
     }
 
-    /**
-     * NIM : Fonction demandant avec combien de tas les joueurs veulent jouer
-     * @return le nombre de tas avec lequel les joueurs veulent jouer
-     */
-    public int nombreTas() {
-        System.out.println("Veuillez entrer le nombre de tas >0 avec lequel vous voulez jouer.");
-        while (true) {
-            if (sc.hasNextInt()) {
-                int nb = sc.nextInt();
-                sc.nextLine();
-                return nb;
-            } else {
-                System.out.println("Il faut entrer un nombre.");
-                sc.nextLine();
-            }
-        }
-    }
 
     /**
      * Fonction affichant l'état de la partie
@@ -238,25 +124,6 @@ public class Ihm {
         System.out.println(laPartie);
     }
 
-    /**
-     * NIM :Fonction demandant au joueur de jouer un coup et récupèrant son coup
-     * @param nom le nom du joueur dont on veut le coup
-     * @return le coup sous forme d'un string
-     */
-    public String leCoup(String nom) {
-        System.out.println(nom + " à vous de jouer un coup sous la forme 'm n' où m est le tas choisi et n le nombre d'allumettes à retirer dans ce tas.");
-        while(true){
-            if(sc.hasNextInt()){
-                int numTas = sc.nextInt();
-                if(sc.hasNextInt()){
-                    int nbAl = sc.nextInt();
-                    sc.nextLine();
-                    return String.valueOf(numTas)+String.valueOf(nbAl);
-                }
-            }
-            System.out.println("Le coup est invalide, rejouez");
-            sc.nextLine();
-        }
-    }
+
 
 }

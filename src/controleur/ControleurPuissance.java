@@ -5,12 +5,19 @@ import modele.JetonCouleur;
 import modele.Joueur;
 import modele.Grille;
 import vue.Ihm;
+import vue.IhmNim;
+import vue.IhmPuissance;
 
 public class ControleurPuissance extends Controleur{
     private Grille laGrille;
 
     public ControleurPuissance(Ihm ihm) {
         super(ihm);
+    }
+
+    @Override
+    public IhmPuissance getLeIhm() {
+        return (IhmPuissance) this.leIhm;
     }
 
     public void init(){
