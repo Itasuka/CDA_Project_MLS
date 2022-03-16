@@ -43,6 +43,16 @@ public class ControleurJeuNim extends Controleur{
     }
 
 
+    private int choixContrainte(){
+        int choix = getLeIhm().choixContrainte();
+        if (choix==1){
+            return getLeIhm().nombreMaxAllumettes();
+        }
+        else {
+            return 0;
+        }
+    }
+
     /**
      * Fonction permettant d'initialiser la partie
      * @return le nombre de tas avec lequel on va joueur
@@ -54,6 +64,7 @@ public class ControleurJeuNim extends Controleur{
         }
         lesTas = new Tas(nbTas);
         lesTas.initialiser();
+        lesTas.setNbMax(choixContrainte());
         setJ1(new Joueur(getLeIhm().nomJoueur(1)));
         setJ2(new Joueur(getLeIhm().nomJoueur(2)));
         return nbTas;
@@ -74,7 +85,7 @@ public class ControleurJeuNim extends Controleur{
      */
     private void faireLeCoup(Joueur j) throws CoupInvalideException {
         String nom = j.getNom();
-        String coup = getLeIhm().leCoup(nom);
+        String coup = getLeIhm().leCoup(nom,lesTas.getNbMax());
         int numTas = Integer.parseInt(coup.substring(0,coup.length()/2));
         int nbAl = Integer.parseInt(coup.substring(coup.length()/2));
         lesTas.gererCoup(creerCoupNim(numTas, nbAl));
@@ -126,6 +137,7 @@ public class ControleurJeuNim extends Controleur{
     private void recreerPartie(int nbTas) {
         lesTas = new Tas(nbTas);
         lesTas.initialiser();
+        lesTas.setNbMax(choixContrainte());
     }
 
     /**

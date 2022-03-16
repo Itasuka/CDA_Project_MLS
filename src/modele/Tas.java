@@ -20,6 +20,23 @@ public class Tas  {
     private int[] lesTas;
 
     /**
+     * nombre max d'allumettes pouvant être retirée
+     */
+    private int nbMax;
+
+    /**
+     * permet de modifier nbMax
+     * @param nb nouvelle valeur de nbMax
+     */
+    public void setNbMax(int nb){this.nbMax=nb;}
+
+    /**
+     * renvoie nbMax
+     * @return nbMax
+     */
+    public int getNbMax(){return nbMax;}
+
+    /**
      * Fonctionn créant un ensemble de nbTas tas avec 0 allumettes dans chaque tas
      * @param nbTas le nombre de tas de la partie
      */
@@ -89,7 +106,7 @@ public class Tas  {
         int numeroTas= coup.getNumeroTas();
         int nb = coup.getNbAllumettes();
 
-        if (numeroTas >= 1 && numeroTas <= lesTas.length && nb >= 1 && nb <= nbAllumettes(numeroTas)) {
+        if (numeroTas >= 1 && numeroTas <= lesTas.length && nb >= 1 && nb <= nbAllumettes(numeroTas) && coup.getNbAllumettes() <= this.nbMax) {
             lesTas[numeroTas - 1] -= nb;
 
         } else {
