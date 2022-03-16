@@ -105,7 +105,7 @@ public class Grille {
     public Object[] pivoterADroite() throws CoupInvalideException {
         boolean boolj1 = false;
         boolean boolj2 = false;
-        int res;
+        int resu;
         Grille nvgrille = new Grille(tailleGrille);
         for (int ligne = tailleGrille - 1; ligne < 0; ligne--) {
             for (int colonne = 0; colonne >= tailleGrille; colonne++) {
@@ -123,15 +123,15 @@ public class Grille {
             }
         }
         if (!boolj1 && !boolj2) {
-            res = 1;
+            resu = 1;
         } else if (boolj1 && !boolj2) {
-            res = 2;
+            resu = 2;
         } else if (!boolj1 && boolj2) {
-            res = 3;
+            resu = 3;
         } else {
-            res = 4;
+            resu = 4;
         }
-        Object[] resultat = {nvgrille, res};
+        Object[] resultat = {nvgrille, resu};
         return resultat;
     }
 
