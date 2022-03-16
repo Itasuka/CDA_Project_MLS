@@ -4,12 +4,15 @@ package modele;
 public class Grille {
     private int tailleGrille;
     private JetonCouleur[][] laGrille;
+    private boolean tourner;
 
     public Grille(int nbCols) {
         this.tailleGrille = nbCols;
         this.laGrille = new JetonCouleur[nbCols][nbCols];
     }
 
+    public boolean getTourner(){return this.tourner;}
+    public void setTourner(boolean tourner){this.tourner = tourner;}
 
     public boolean grillePleine() {
         for (int i = 0; i < tailleGrille; i++) {

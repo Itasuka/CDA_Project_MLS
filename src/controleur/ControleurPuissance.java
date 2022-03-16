@@ -8,7 +8,7 @@ import vue.Ihm;
 import vue.IhmNim;
 import vue.IhmPuissance;
 
-public class ControleurPuissance extends Controleur{
+public class ControleurPuissance extends Controleur {
     private Grille laGrille;
 
     public ControleurPuissance(Ihm ihm) {
@@ -20,52 +20,89 @@ public class ControleurPuissance extends Controleur{
         return (IhmPuissance) this.leIhm;
     }
 
-    public void init(){
-        laGrille = new Grille(7);
-        setJ1(new Joueur(getLeIhm().nomJoueur(1),"R"));
-        setJ2(new Joueur(getLeIhm().nomJoueur(2),"J"));
+    private void avecOuSansR() {
+        int choix = getLeIhm().avecOuSansR();
+        if (choix == 1) {
+            laGrille.setTourner(true);
+        } else {
+            laGrille.setTourner(false);
+        }
     }
 
-    public void faireUnTour(Joueur j){
+    public void init() {
+        laGrille = new Grille(7);
+        avecOuSansR();
+        setJ1(new Joueur(getLeIhm().nomJoueur(1), "R"));
+        setJ2(new Joueur(getLeIhm().nomJoueur(2), "J"));
+    }
+
+    public void faireUnTour(Joueur j) {
         etatPartie();
         String nom = j.getNom();
         JetonCouleur jetonCourant = j.getMonJeton();
         boolean flag1 = true;
-        while(flag1) {
-            try {
-                laGrille.gererCoup(getLeIhm().leCoup(nom, jetonCourant.toString()), jetonCourant);
-                flag1 = false;
-            } catch (CoupInvalideException e) {
-                getLeIhm().afficherErreur(e.getMessage());
+        if (laGrille.getTourner() == true) {
+            while (flag1) {
+                int choix = getLeIhm().placerOuRotation(nom);
+                if (choix == 0) {
+                    try {
+                        laGrille.gererCoup(getLeIhm().leCoup(nom, jetonCourant.toString()), jetonCourant);
+                        flag1 = false;
+                    } catch (CoupInvalideException e) {
+                        getLeIhm().afficherErreur(e.getMessage());
+                    }
+                } else if (choix == 1) {
+                    try {
+                        this.laGrille = laGrille.pivoterAGauche();
+                        flag1 = false;
+                    } catch (CoupInvalideException e) {
+                        getLeIhm().afficherErreur(e.getMessage());
+                    }
+                } else {
+                    try {
+                        this.laGrille = laGrille.pivoterADroite();
+                        flag1 = false;
+                    } catch (CoupInvalideException e) {
+                        getLeIhm().afficherErreur(e.getMessage());
+                    }
+                }
+            }
+        } else {
+            while (flag1) {
+                try {
+                    laGrille.gererCoup(getLeIhm().leCoup(nom, jetonCourant.toString()), jetonCourant);
+                    flag1 = false;
+                } catch (CoupInvalideException e) {
+                    getLeIhm().afficherErreur(e.getMessage());
+                }
             }
         }
     }
 
-    public boolean partieGagnee(Joueur j){
+    public boolean partieGagnee(Joueur j) {
         JetonCouleur jetonCourant = j.getMonJeton();
-        if(laGrille.partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())){
+        if (laGrille.partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())) {
             return true;
         }
         return laGrille.grillePleine();
     }
 
-    public boolean finPartie(Joueur j){
+    public boolean finPartie(Joueur j) {
         etatPartie();
         JetonCouleur jetonCourant = j.getMonJeton();
-        if (laGrille.partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())){
+        if (laGrille.partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())) {
             j.gagnePartie();
-            if(rejouer(j)==1){
+            if (rejouer(j) == 1) {
+                recreerPartie();
+                return true;
+            }
+        } else if (laGrille.grillePleine()) {
+            if (getLeIhm().rejouerEgalite() == 1) {
                 recreerPartie();
                 return true;
             }
         }
-        else if (laGrille.grillePleine()) {
-            if (getLeIhm().rejouerEgalite()==1){
-                recreerPartie();
-                return true;
-            }
-        }
-        afficherFin(getJ1(),getJ2());
+        afficherFin(getJ1(), getJ2());
         return false;
     }
 
@@ -94,7 +131,7 @@ public class ControleurPuissance extends Controleur{
         }
     }
 
-    public void etatPartie(){
+    public void etatPartie() {
         getLeIhm().etatPartie(laGrille.toString());
     }
 }

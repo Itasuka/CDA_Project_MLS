@@ -4,6 +4,22 @@ import modele.JetonCouleur;
 
 public class IhmPuissance extends Ihm {
 
+
+    public int avecOuSansR(){
+        while (true){
+            System.out.println("Souhaitez-vous jouer avec ou sans Rotations ? 0 pour jouer sans et 1 avec.");
+            if(sc.hasNextInt()){
+                int choix = sc.nextInt();
+                if(choix==1 || choix==0){
+                    sc.nextLine();
+                    return choix;
+                }
+            }
+            System.out.println("Votre choix est invalide : il faut entrer 0 ou 1 !");
+            sc.nextLine();
+        }
+    }
+
     /**
      * P4 : Fonction permettant de savoir le type de coup entre rotation à droite/gauche ou placer un jeton
      * @param nom le nom du joueur qui va jouer
@@ -61,6 +77,25 @@ public class IhmPuissance extends Ihm {
                 System.out.println("La colonne indiquée est invalide !");
                 sc.nextLine();
             }
+        }
+    }
+
+    /**
+     * P4 : Fonction permettant de demander si on veut rejouer quand la grille a été remplie (personne n'a gagné)
+     * @return 0 pour non, 1 pour oui
+     */
+    public int rejouerEgalite() {
+        System.out.println("Personne n'a gagné cette partie ! \n Voulez vous rejouer ? 1 pour oui ou 0 pour non.");
+        while (true) {
+            if (sc.hasNextInt()) {
+                int choix = sc.nextInt();
+                if (choix == 1 || choix == 0) {
+                    sc.nextLine();
+                    return choix;
+                }
+            }
+            System.out.println("Il faut entrer 0 ou 1 !");
+            sc.nextLine();
         }
     }
 }
