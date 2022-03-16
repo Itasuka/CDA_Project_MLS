@@ -1,9 +1,10 @@
 package vue;
 
-public class IhmNim extends Ihm{
+public class IhmNim extends Ihm {
 
     /**
      * NIM : Fonction permettant de savoir si les joueurs veulent jouer à Nim avec une contrainte sur le nombre d'allumettes
+     *
      * @return 1 pour avec contrainte, 0 pour sans contrainte
      */
     public int choixContrainte() {
@@ -15,15 +16,15 @@ public class IhmNim extends Ihm{
                     sc.nextLine();
                     return choixContrainte;
                 }
-            } else {
-                System.out.println("Votre choix est invalide : il faut entrer 0 ou 1 !");
-                sc.nextLine();
             }
+            System.out.println("Votre choix est invalide : il faut entrer 0 ou 1 !");
+            sc.nextLine();
         }
     }
 
     /**
      * NIM : Fonction permettant de connaitre le nombre d'allumettes pour la contrainte
+     *
      * @return le nombre d'allumettes pour la contrainte
      */
     public int nombreMaxAllumettes() {
@@ -31,17 +32,20 @@ public class IhmNim extends Ihm{
         while (true) {
             if (sc.hasNextInt()) {
                 int nbMax = sc.nextInt();
-                sc.nextLine();
-                return nbMax;
-            } else {
-                System.out.println("Il faut entrer un nombre.");
-                sc.nextLine();
+                if (nbMax>0) {
+                    sc.nextLine();
+                    return nbMax;
+                }
             }
+            System.out.println("Il faut entrer un nombre > 0.");
+            sc.nextLine();
         }
     }
 
+
     /**
      * NIM : Fonction demandant avec combien de tas les joueurs veulent jouer
+     *
      * @return le nombre de tas avec lequel les joueurs veulent jouer
      */
     public int nombreTas() {
@@ -60,21 +64,22 @@ public class IhmNim extends Ihm{
 
     /**
      * NIM :Fonction demandant au joueur de jouer un coup et récupèrant son coup
+     *
      * @param nom le nom du joueur dont on veut le coup
      * @return le coup sous forme d'un string
      */
     public String leCoup(String nom, int nb) {
         System.out.println(nom + " à vous de jouer un coup sous la forme 'm n' où m est le tas choisi et n le nombre d'allumettes à retirer dans ce tas.");
-        if (nb!=0){
-            System.out.println("Vous pouvez retirer "+nb+" allumettes maximum.");
+        if (nb != 0) {
+            System.out.println("Vous pouvez retirer " + nb + " allumettes maximum.");
         }
-        while(true){
-            if(sc.hasNextInt()){
+        while (true) {
+            if (sc.hasNextInt()) {
                 int numTas = sc.nextInt();
-                if(sc.hasNextInt()){
+                if (sc.hasNextInt()) {
                     int nbAl = sc.nextInt();
                     sc.nextLine();
-                    return String.valueOf(numTas)+String.valueOf(nbAl);
+                    return String.valueOf(numTas) + String.valueOf(nbAl);
                 }
             }
             System.out.println("Le coup est invalide, rejouez");
