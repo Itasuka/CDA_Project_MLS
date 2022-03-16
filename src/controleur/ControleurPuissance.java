@@ -60,7 +60,7 @@ public class ControleurPuissance extends Controleur {
                     }
                 } else {
                     try {
-                        this.laGrille = laGrille.pivoterADroite();
+                        laGrille.pivoterADroite();
                         flag1 = false;
                     } catch (CoupInvalideException e) {
                         getLeIhm().afficherErreur(e.getMessage());
