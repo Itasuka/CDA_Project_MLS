@@ -43,9 +43,8 @@ public class Joueur {
         nbPartiesGagnees++;
     }
 
-    public int getNbRotations() { return nbRotations; }
-
-    public void setNbRotations(int r) { nbRotations=r; }
+    public int getNbRotations(){ return nbRotations; }
+    public void faitRotation(){ nbRotations--; }
 
     @Override
     public boolean equals(Object o) {

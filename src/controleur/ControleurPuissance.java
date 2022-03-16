@@ -5,7 +5,6 @@ import modele.JetonCouleur;
 import modele.Joueur;
 import modele.Grille;
 import vue.Ihm;
-import vue.IhmNim;
 import vue.IhmPuissance;
 
 public class ControleurPuissance extends Controleur {
@@ -21,7 +20,7 @@ public class ControleurPuissance extends Controleur {
     }
 
     private void avecOuSansR() {
-        int choix = getLeIhm().avecOuSansR();
+        int choix = getLeIhm().rotation();
         if (choix == 1) {
             laGrille.setTourner(true);
         } else {
@@ -41,9 +40,9 @@ public class ControleurPuissance extends Controleur {
         String nom = j.getNom();
         JetonCouleur jetonCourant = j.getMonJeton();
         boolean flag1 = true;
-        if (laGrille.getTourner() == true) {
+        if (laGrille.getTourner() && j.getNbRotations()>0) {
             while (flag1) {
-                int choix = getLeIhm().placerOuRotation(nom);
+                int choix = getLeIhm().placerOuRotation(nom,jetonCourant.toString());
                 if (choix == 0) {
                     try {
                         laGrille.gererCoup(getLeIhm().leCoup(nom, jetonCourant.toString()), jetonCourant);
@@ -54,13 +53,15 @@ public class ControleurPuissance extends Controleur {
                 } else if (choix == 1) {
                     try {
                         this.laGrille = laGrille.pivoterAGauche();
+                        j.faitRotation();
                         flag1 = false;
                     } catch (CoupInvalideException e) {
                         getLeIhm().afficherErreur(e.getMessage());
                     }
                 } else {
                     try {
-                        laGrille.pivoterADroite();
+                        this.laGrille = laGrille.pivoterADroite();
+                        j.faitRotation();
                         flag1 = false;
                     } catch (CoupInvalideException e) {
                         getLeIhm().afficherErreur(e.getMessage());
@@ -70,6 +71,9 @@ public class ControleurPuissance extends Controleur {
         } else {
             while (flag1) {
                 try {
+                    if (j.getNbRotations()==0){
+                        getLeIhm().plusDeRotationsDispo();
+                    }
                     laGrille.gererCoup(getLeIhm().leCoup(nom, jetonCourant.toString()), jetonCourant);
                     flag1 = false;
                 } catch (CoupInvalideException e) {
@@ -81,8 +85,26 @@ public class ControleurPuissance extends Controleur {
 
     public boolean partieGagnee(Joueur j) {
         JetonCouleur jetonCourant = j.getMonJeton();
-        if (laGrille.partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())) {
-            return true;
+        if (laGrille.getTourner()){
+            if (laGrille.getPartieFinie()==1){
+                setjCourant(getJ1());
+                return true;
+            }
+            else if (laGrille.getPartieFinie()==2){
+                setjCourant(getJ2());
+                return true;
+            }
+            else if (laGrille.getPartieFinie()==3){
+                return true;
+            }
+            else if (laGrille.partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())) {
+                return true;
+            }
+        }
+        else{
+            if (laGrille.partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())) {
+                return true;
+            }
         }
         return laGrille.grillePleine();
     }
@@ -90,14 +112,15 @@ public class ControleurPuissance extends Controleur {
     public boolean finPartie(Joueur j) {
         etatPartie();
         JetonCouleur jetonCourant = j.getMonJeton();
-        if (laGrille.partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())) {
-            j.gagnePartie();
-            if (rejouer(j) == 1) {
+        if (laGrille.grillePleine() || laGrille.getPartieFinie()==3) {
+            if (getLeIhm().rejouerEgalite() == 1) {
                 recreerPartie();
                 return true;
             }
-        } else if (laGrille.grillePleine()) {
-            if (getLeIhm().rejouerEgalite() == 1) {
+        }
+        else if (laGrille.partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne()) || laGrille.getPartieFinie()==1 || laGrille.getPartieFinie()==2) {
+            j.gagnePartie();
+            if (rejouer(j) == 1) {
                 recreerPartie();
                 return true;
             }
@@ -114,6 +137,7 @@ public class ControleurPuissance extends Controleur {
 
     public void recreerPartie() {
         laGrille = new Grille(7);
+        avecOuSansR();
     }
 
     public void afficherFin(Joueur j1, Joueur j2) {

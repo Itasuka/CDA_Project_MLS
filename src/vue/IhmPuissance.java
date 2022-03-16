@@ -5,29 +5,14 @@ import modele.JetonCouleur;
 public class IhmPuissance extends Ihm {
 
 
-    public int avecOuSansR(){
-        while (true){
-            System.out.println("Souhaitez-vous jouer avec ou sans Rotations ? 0 pour jouer sans et 1 avec.");
-            if(sc.hasNextInt()){
-                int choix = sc.nextInt();
-                if(choix==1 || choix==0){
-                    sc.nextLine();
-                    return choix;
-                }
-            }
-            System.out.println("Votre choix est invalide : il faut entrer 0 ou 1 !");
-            sc.nextLine();
-        }
-    }
-
     /**
      * P4 : Fonction permettant de savoir le type de coup entre rotation à droite/gauche ou placer un jeton
      * @param nom le nom du joueur qui va jouer
      * @return 0 pour placer le jeton, 1 pour rotation à gauche, 2 pour rotation à droite
      */
-    public int placerOuRotation(String nom) {
+    public int placerOuRotation(String nom, String couleur) {
         while (true) {
-            System.out.println(nom + "à vous de jouer. Voulez-vous placer un jeton ou effectuer une rotation ? 0 pour placer le jeton, 1 pour rotation à gauche ou 2 pour rotation à droite.");
+            System.out.println(nom + " de l'équipe " + couleur + " à vous de jouer. Voulez-vous placer un jeton ou effectuer une rotation ? 0 pour placer le jeton, 1 pour rotation à gauche ou 2 pour rotation à droite.");
             if (sc.hasNextInt()) {
                 int choix = sc.nextInt();
                 if (choix == 1 || choix == 2 || choix == 0) {
@@ -38,6 +23,10 @@ public class IhmPuissance extends Ihm {
             System.out.println("Votre choix est invalide : il faut entrer 0, 1 ou 2 !");
             sc.nextLine();
         }
+    }
+
+    public void plusDeRotationsDispo(){
+        System.out.println("Vous n'avez plus de rotation disponible !");
     }
 
     /**
@@ -85,7 +74,7 @@ public class IhmPuissance extends Ihm {
      * @return 0 pour non, 1 pour oui
      */
     public int rejouerEgalite() {
-        System.out.println("Personne n'a gagné cette partie ! \n Voulez vous rejouer ? 1 pour oui ou 0 pour non.");
+        System.out.println("Egalité, personne n'a gagné cette partie ! \n Voulez vous rejouer ? 1 pour oui ou 0 pour non.");
         while (true) {
             if (sc.hasNextInt()) {
                 int choix = sc.nextInt();

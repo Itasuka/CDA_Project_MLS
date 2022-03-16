@@ -10,6 +10,8 @@ public abstract class Controleur {
     private Joueur j2;
     private Joueur jCourant;
 
+    public void setjCourant(Joueur j){this.jCourant=j;}
+
     public Controleur(Ihm ihm){
         this.leIhm = ihm;
     }
@@ -43,10 +45,10 @@ public abstract class Controleur {
                     break;
                 }
                 else if (jCourant == j1){
-                    jCourant = j2;
+                    setjCourant(j2);
                 }
                 else{
-                    jCourant = j1;
+                    setjCourant(j1);
                 }
             }
         }
