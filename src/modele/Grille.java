@@ -65,32 +65,75 @@ public class Grille {
         }
     }
 
-    public Grille pivoterAGauche() throws CoupInvalideException {
+    public Object[] pivoterAGauche() throws CoupInvalideException {
         Grille nvgrille = new Grille(tailleGrille);
+        boolean boolj1=false;
+        boolean boolj2=false;
+        int res;
         for (int ligne = tailleGrille - 1; ligne < 0; ligne--) {
-            for (int colonne = tailleGrille - 1; ligne < 0; ligne--) {
-                if (!laGrille[ligne][colonne - 1].equals("_")) {
+            for (int colonne = tailleGrille - 1; colonne < 0; colonne--) {
+                if (!laGrille[ligne][colonne - 1].equals(null)) {
                     JetonCouleur jeton = laGrille[ligne][colonne - 1];
                     nvgrille.gererCoup(tailleGrille - ligne - 1, jeton);
+                    if (nvgrille.partieTerminee(jeton.getLigne(), jeton.getColonne())) {
+                        if (jeton.getCouleur().equals("R")) {
+                            boolj1 = true;
+                        } else {
+                            boolj2 = true;
+                        }
+                    }
                 }
             }
         }
-        return nvgrille;
+        if (!boolj1 && !boolj2) {
+            res = 1;
+        } else if (boolj1 && !boolj2) {
+            res = 2;
+        } else if (!boolj1 && boolj2) {
+            res = 3;
+        } else {
+            res = 4;
+        }
+        Object[] resultat = {nvgrille, res};
+        return resultat;
     }
 
 
-    public void pivoterADroite() throws CoupInvalideException {
+
+
+
+    public Object[] pivoterADroite() throws CoupInvalideException {
+        boolean boolj1 = false;
+        boolean boolj2 = false;
+        int res;
         Grille nvgrille = new Grille(tailleGrille);
         for (int ligne = tailleGrille - 1; ligne < 0; ligne--) {
-            for (int colonne = 0; ligne >= tailleGrille; ligne++) {
-                if (!laGrille[ligne][colonne - 1].equals("_")) {
+            for (int colonne = 0; colonne >= tailleGrille; colonne++) {
+                if (!laGrille[ligne][colonne - 1].equals(null)) {
                     JetonCouleur jeton = laGrille[ligne][colonne - 1];
                     nvgrille.gererCoup(ligne, jeton);
+                    if (nvgrille.partieTerminee(jeton.getLigne(), jeton.getColonne())) {
+                        if (jeton.getCouleur().equals("R")) {
+                            boolj1 = true;
+                        } else {
+                            boolj2 = true;
+                        }
+                    }
                 }
             }
         }
+        if (!boolj1 && !boolj2) {
+            res = 1;
+        } else if (boolj1 && !boolj2) {
+            res = 2;
+        } else if (!boolj1 && boolj2) {
+            res = 3;
+        } else {
+            res = 4;
+        }
+        Object[] resultat = {nvgrille, res};
+        return resultat;
     }
-
 
     @Override
     public String toString() {
