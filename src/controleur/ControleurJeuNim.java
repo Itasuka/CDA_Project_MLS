@@ -34,6 +34,7 @@ public class ControleurJeuNim extends Controleur{
             recreerPartie();
             return true;
         }
+        getLeIhm().afficherScore(getJ1().getNom(),getJ1().getNbPartiesGagnees(),getJ2().getNom(),getJ2().getNbPartiesGagnees());
         afficherVainqueurTotal(getJ1(),getJ2());
         return false;
     }
