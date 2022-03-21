@@ -6,7 +6,7 @@ package modele;
  *
  * @author lkahlem
  */
-public class CoupNim {
+public class CoupNim extends Coup{
     private int numeroTas;
     private int nbAllumettes;
 

@@ -1,9 +1,6 @@
 package controleur;
 
-import modele.CoupInvalideException;
-import modele.JetonCouleur;
-import modele.Joueur;
-import modele.Grille;
+import modele.*;
 import vue.Ihm;
 import vue.IhmPuissance;
 
@@ -49,7 +46,8 @@ public class ControleurPuissance extends Controleur {
                 int choix = getLeIhm().placerOuRotation(nom,jetonCourant.toString());
                 if (choix == 0) {
                     try {
-                        laGrille.gererCoup(getLeIhm().leCoup(nom, jetonCourant.toString()), jetonCourant);
+                        int col = getLeIhm().leCoup(nom, jetonCourant.toString());
+                        laGrille.gererCoup(new CoupPuissance4(col,jetonCourant));
                         flag1 = false;
                     } catch (CoupInvalideException e) {
                         getLeIhm().afficherErreur(e.getMessage());
@@ -78,7 +76,8 @@ public class ControleurPuissance extends Controleur {
                     if (j.getNbRotations()==0){
                         getLeIhm().plusDeRotationsDispo();
                     }
-                    laGrille.gererCoup(getLeIhm().leCoup(nom, jetonCourant.toString()), jetonCourant);
+                    int col = getLeIhm().leCoup(nom, jetonCourant.toString());
+                    laGrille.gererCoup(new CoupPuissance4(col,jetonCourant));
                     flag1 = false;
                 } catch (CoupInvalideException e) {
                     getLeIhm().afficherErreur(e.getMessage());
