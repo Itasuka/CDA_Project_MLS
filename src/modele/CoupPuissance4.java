@@ -1,8 +1,8 @@
 package modele;
 
 public class CoupPuissance4 extends Coup{
-    int col;
-    JetonCouleur jeton;
+    private int col;
+    private JetonCouleur jeton;
 
     public CoupPuissance4(int col, JetonCouleur jeton){
         this.col = col;
