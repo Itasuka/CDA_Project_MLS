@@ -22,7 +22,7 @@ public class Tas  {
     /**
      * nombre max d'allumettes pouvant être retirée
      */
-    private int nbMax;
+    private int nbMax = Integer.MAX_VALUE;
 
     /**
      * permet de modifier nbMax

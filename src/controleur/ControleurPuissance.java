@@ -23,12 +23,16 @@ public class ControleurPuissance extends Controleur {
         int choix = getLeIhm().rotation();
         if (choix == 1) {
             laGrille.setTourner(true);
+            getJ1().setNbRotations(4);
+            getJ2().setNbRotations(4);
         } else {
             laGrille.setTourner(false);
         }
     }
 
     public void init() {
+        setJ1(new Joueur("",""));
+        setJ2(new Joueur("",""));
         laGrille = new Grille(7);
         avecOuSansR();
         setJ1(new Joueur(getLeIhm().nomJoueur(1), "R"));
