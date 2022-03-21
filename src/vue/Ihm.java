@@ -8,6 +8,36 @@ public abstract class Ihm {
     protected static final Scanner sc = new Scanner(System.in);
 
     /**
+     * Fonction permettant de demander si le joueur veut jouer avec l'IA ou pas
+     * @return 0 pour non, 1 pour oui
+     */
+    public static boolean jouerAvecOrdiOuPas() {
+        System.out.println("Voulez-vous jouer à deux joueurs ou contre un ordinateur ? 0 pour 2 joueurs, 1 pour contre l'ordinateur.");
+        while (true) {
+            if (sc.hasNextInt()) {
+                int choix = sc.nextInt();
+                if (choix == 1) {
+                    sc.nextLine();
+                    return true;
+                }
+                if (choix == 0) {
+                    sc.nextLine();
+                    return false;
+                }
+            }
+            System.out.println("Votre choix est invalide : il faut entrer 0 ou 1 !");
+            sc.nextLine();
+        }
+    }
+
+    /**
+     * ORDI : Fonction permettant d'afficher que l'ordinateur à jouer
+     */
+    public void lOrdiAJoue(){
+        System.out.println("L'ordinateur a joué !");
+    }
+
+    /**
      * Fonction permettant d'afficher le message de l'erreur
      * @param erreur le message d'erreur
      */
