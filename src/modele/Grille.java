@@ -1,7 +1,7 @@
 package modele;
 
 
-public class Grille {
+public class Grille extends Plateau {
     private int tailleGrille;
     private JetonCouleur[][] laGrille;
     private boolean tourner;
@@ -56,7 +56,10 @@ public class Grille {
         }
     }
 
-    public void gererCoup(int colonne, JetonCouleur couleur) throws CoupInvalideException {
+    public void gererCoup(Coup c) throws CoupInvalideException {
+        CoupPuissance4 coup = (CoupPuissance4) c;
+        int colonne = coup.getCol();
+        JetonCouleur couleur = coup.getJeton();
         if (colonne < 1 || colonne > tailleGrille || laGrille[0][colonne - 1] != null) {
             throw new CoupInvalideException("La colonne indiquée est invalide !");
         }
@@ -80,7 +83,7 @@ public class Grille {
             for (int colonne = tailleGrille - 1; colonne >= 0; colonne--) {
                 if (!(laGrille[ligne][colonne] ==null)) {
                     JetonCouleur jeton = laGrille[ligne][colonne];
-                    nvgrille.gererCoup(tailleGrille - ligne, jeton);
+                    nvgrille.gererCoup(new CoupPuissance4(tailleGrille - ligne, jeton));
                     if (nvgrille.partieTerminee(jeton.getLigne(), jeton.getColonne())) {
                         if (jeton.getCouleur().equals("\u001B[31m")) {
                             boolj1 = true;
@@ -115,7 +118,7 @@ public class Grille {
             for (int colonne = 0; colonne < tailleGrille; colonne++) {
                 if (!(laGrille[ligne][colonne]==null)) {
                     JetonCouleur jeton = laGrille[ligne][colonne];
-                    nvgrille.gererCoup(ligne+1, jeton);
+                    nvgrille.gererCoup(new CoupPuissance4(ligne+1, jeton));
                     if (nvgrille.partieTerminee(jeton.getLigne(), jeton.getColonne())) {
                         if (jeton.getCouleur().equals("\u001B[31m")) {
                             boolj1 = true;
