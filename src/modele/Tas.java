@@ -12,7 +12,7 @@ import modele.CoupNim;
  *
  * @author Kahlem
  */
-public class Tas  {
+public class Tas extends Plateau {
 
     /**
      * représente l'état courant de la partie
@@ -99,10 +99,11 @@ public class Tas  {
 
     /**
      * Fonction modifiant l'état de la partie en fonction du coup passé en paramètre
-     * @param coup le coup a effectué
+     * @param c le coup a effectué
      * @throws CoupInvalideException si le coup est invalide
      */
-    public void gererCoup(CoupNim coup) throws CoupInvalideException {
+    public void gererCoup(Coup c) throws CoupInvalideException {
+        CoupNim coup = (CoupNim) c;
         int numeroTas= coup.getNumeroTas();
         int nb = coup.getNbAllumettes();
 
