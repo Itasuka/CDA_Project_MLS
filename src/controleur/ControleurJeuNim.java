@@ -50,7 +50,7 @@ public class ControleurJeuNim extends Controleur{
             return getLeIhm().nombreMaxAllumettes();
         }
         else {
-            return 0;
+            return Integer.MAX_VALUE;
         }
     }
 

@@ -44,6 +44,7 @@ public class Joueur {
     }
 
     public int getNbRotations(){ return nbRotations; }
+    public void setNbRotations(int nb){ this.nbRotations = nb;}
     public void faitRotation(){ nbRotations--; }
 
     @Override
