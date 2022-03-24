@@ -8,11 +8,11 @@ import vue.IhmPuissance;
 public class Main {
     public static void main(String[] args) {
         if (Ihm.choixJeu()==0){
-            ControleurJeuNim controleur = new ControleurJeuNim(new IhmNim(), Ihm.jouerAvecOrdiOuPas());
+            ControleurJeuNim controleur = new ControleurJeuNim(new IhmNim());
             controleur.jouer();
         }
         else{
-            ControleurPuissance controleur = new ControleurPuissance(new IhmPuissance(), Ihm.jouerAvecOrdiOuPas());
+            ControleurPuissance controleur = new ControleurPuissance(new IhmPuissance());
             controleur.jouer();
         }
         nnnn
