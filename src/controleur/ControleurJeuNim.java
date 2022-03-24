@@ -4,10 +4,6 @@ import modele.*;
 import vue.Ihm;
 import vue.IhmNim;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class ControleurJeuNim extends Controleur{
     private int nbTas;
 
@@ -18,6 +14,7 @@ public class ControleurJeuNim extends Controleur{
         return (IhmNim) this.leIhm;
     }
 
+    public int getNbTas(){return nbTas;}
     public void setNbTas(int nb){ this.nbTas=nb;}
 
     public ControleurJeuNim(Ihm ihm) {
@@ -63,7 +60,7 @@ public class ControleurJeuNim extends Controleur{
      * Fonction permettant d'initialiser la partie
      * @return le nombre de tas avec lequel on va joueur
      */
-    private int creerPartie() {
+    public int creerPartie() {
         int nbTas = 0;
         while (nbTas <= 0) {
             nbTas = getLeIhm().nombreTas();
@@ -80,7 +77,7 @@ public class ControleurJeuNim extends Controleur{
      * Fonction appellant la fonction d'affichage de la partie de l'ihm
      * @param lesTas la partie en cours
      */
-    private void etatPartie(Tas lesTas) {
+    public void etatPartie(Tas lesTas) {
         getLeIhm().etatPartie(lesTas.toString());
     }
 
@@ -165,27 +162,5 @@ public class ControleurJeuNim extends Controleur{
             getLeIhm().egalite(j1.getNbPartiesGagnees());
         }
     }
-
-    private void jouerStrategie() throws CoupInvalideException {
-        List<CoupNim> coupPossible = new ArrayList<>();
-
-        for (int i = 1; i < nbTas; i++) {
-            for (int j = 1; j < 2 * j + 1; j++) {
-                try {
-                    Tas testTas = lesTas();
-                    testTas.gererCoup(creerCoupNim(i,j));
-                    coupPossible.add(creerCoupNim(i,j));
-                }
-                catch(CoupInvalideException e){
-                }
-                Random ran = new Random();
-                int randomInt = ran.nextInt(coupPossible.size());
-                lesTas().gererCoup(coupPossible.get(randomInt));
-
-            }
-
-        }
-    }
-
 
 }

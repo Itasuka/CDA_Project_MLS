@@ -167,7 +167,7 @@ public class ControleurPuissance extends Controleur {
         getLeIhm().etatPartie(laGrille().toString());
     }
 
-    public void jouerStrategie() throws CoupInvalideException {
+   /* public void jouerStrategie() throws CoupInvalideException {
         Grille grilletest= laGrille;
         Grille grilledroite=grilletest.pivoterADroite();
         if (grilletest.getPartieFinie()==2){
@@ -191,5 +191,5 @@ public class ControleurPuissance extends Controleur {
                 }
             }
         }
-    }
+    } */
 }
