@@ -15,6 +15,6 @@ public class Main {
             ControleurPuissance controleur = new ControleurPuissance(new IhmPuissance());
             controleur.jouer();
         }
-        nnnn
+
     }
 }

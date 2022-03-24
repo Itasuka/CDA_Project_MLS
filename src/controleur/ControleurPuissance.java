@@ -14,7 +14,9 @@ public class ControleurPuissance extends Controleur {
         super(ihm);
     }
 
-    public Grille laGrille(){return (Grille) getPlateau();}
+    public Grille laGrille() {
+        return (Grille) getPlateau();
+    }
 
     @Override
     public IhmPuissance getLeIhm() {
@@ -33,8 +35,8 @@ public class ControleurPuissance extends Controleur {
     }
 
     public void init() {
-        setJ1(new Joueur("",""));
-        setJ2(new Joueur("",""));
+        setJ1(new Joueur("", ""));
+        setJ2(new Joueur("", ""));
         setPlateau(new Grille(7));
         avecOuSansR();
         setJ1(new Joueur(getLeIhm().nomJoueur(1), "R"));
@@ -46,13 +48,13 @@ public class ControleurPuissance extends Controleur {
         String nom = j.getNom();
         JetonCouleur jetonCourant = j.getMonJeton();
         boolean flag1 = true;
-        if (laGrille().getTourner() && j.getNbRotations()>0) {
+        if (laGrille().getTourner() && j.getNbRotations() > 0) {
             while (flag1) {
-                int choix = getLeIhm().placerOuRotation(nom,jetonCourant.toString());
+                int choix = getLeIhm().placerOuRotation(nom, jetonCourant.toString());
                 if (choix == 0) {
                     try {
                         int col = getLeIhm().leCoup(nom, jetonCourant.toString());
-                        laGrille().gererCoup(new CoupPuissance4(col,jetonCourant));
+                        laGrille().gererCoup(new CoupPuissance4(col, jetonCourant));
                         flag1 = false;
                     } catch (CoupInvalideException e) {
                         getLeIhm().afficherErreur(e.getMessage());
@@ -78,11 +80,11 @@ public class ControleurPuissance extends Controleur {
         } else {
             while (flag1) {
                 try {
-                    if (j.getNbRotations()==0){
+                    if (j.getNbRotations() == 0) {
                         getLeIhm().plusDeRotationsDispo();
                     }
                     int col = getLeIhm().leCoup(nom, jetonCourant.toString());
-                    laGrille().gererCoup(new CoupPuissance4(col,jetonCourant));
+                    laGrille().gererCoup(new CoupPuissance4(col, jetonCourant));
                     flag1 = false;
                 } catch (CoupInvalideException e) {
                     getLeIhm().afficherErreur(e.getMessage());
@@ -93,23 +95,19 @@ public class ControleurPuissance extends Controleur {
 
     public boolean partieGagnee(Joueur j) {
         JetonCouleur jetonCourant = j.getMonJeton();
-        if (laGrille().getTourner()){
-            if (laGrille().getPartieFinie()==1){
+        if (laGrille().getTourner()) {
+            if (laGrille().getPartieFinie() == 1) {
                 setjCourant(getJ1());
                 return true;
-            }
-            else if (laGrille().getPartieFinie()==2){
+            } else if (laGrille().getPartieFinie() == 2) {
                 setjCourant(getJ2());
                 return true;
-            }
-            else if (laGrille().getPartieFinie()==3){
+            } else if (laGrille().getPartieFinie() == 3) {
+                return true;
+            } else if (laGrille().partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())) {
                 return true;
             }
-            else if (laGrille().partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())) {
-                return true;
-            }
-        }
-        else{
+        } else {
             if (laGrille().partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne())) {
                 return true;
             }
@@ -120,13 +118,12 @@ public class ControleurPuissance extends Controleur {
     public boolean finPartie(Joueur j) {
         etatPartie();
         JetonCouleur jetonCourant = j.getMonJeton();
-        if (laGrille().grillePleine() || laGrille().getPartieFinie()==3) {
+        if (laGrille().grillePleine() || laGrille().getPartieFinie() == 3) {
             if (getLeIhm().rejouerEgalite() == 1) {
                 recreerPartie();
                 return true;
             }
-        }
-        else if (laGrille().partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne()) || laGrille().getPartieFinie()==1 || laGrille().getPartieFinie()==2) {
+        } else if (laGrille().partieTerminee(jetonCourant.getLigne(), jetonCourant.getColonne()) || laGrille().getPartieFinie() == 1 || laGrille().getPartieFinie() == 2) {
             j.gagnePartie();
             if (rejouer(j) == 1) {
                 recreerPartie();
@@ -165,31 +162,5 @@ public class ControleurPuissance extends Controleur {
 
     public void etatPartie() {
         getLeIhm().etatPartie(laGrille().toString());
-    }
-
-    public void jouerStrategie() throws CoupInvalideException {
-        Grille grilletest= laGrille;
-        Grille grilledroite=grilletest.pivoterADroite();
-        if (grilletest.getPartieFinie()==2){
-            laGrille.pivoterADroite();
-        }
-        else {
-            Map<Integer, Set<CoupPuissance4>> lesCoups = new TreeMap<Integer, Set<CoupPuissance4>>();
-            for (int i=1; i<8; i++) {
-                Grille grilleneuve=laGrille;
-                CoupPuissance4 lecoup= new CoupPuissance4(i, getJ2().getMonJeton());
-                grilleneuve.gererCoup(lecoup);
-                int nbalignes=grilleneuve.compteurAlignes(getJ2().getMonJeton().getLigne(),getJ2().getMonJeton().getColonne());
-                if (nbalignes==0) {
-                    lesCoups.get(7).add(lecoup);
-                }
-                if (nbalignes==0) {
-                    lesCoups.get(7).add(lecoup);
-                }
-                if (nbalignes==0) {
-                    lesCoups.get(7).add(lecoup);
-                }
-            }
-        }
     }
 }

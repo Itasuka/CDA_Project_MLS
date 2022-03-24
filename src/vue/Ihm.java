@@ -29,7 +29,7 @@ public abstract class Ihm {
             sc.nextLine();
         }
     }
-    nnnn
+
 
     /**
      * ORDI : Fonction permettant d'afficher que l'ordinateur à jouer

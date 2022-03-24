@@ -12,6 +12,13 @@ public class Grille extends Plateau {
         this.laGrille = new JetonCouleur[nbCols][nbCols];
     }
 
+    public Grille(Grille g){
+        this.tailleGrille=g.tailleGrille;
+        this.tourner=g.tourner;
+        this.partieFinie=g.partieFinie;
+        this.laGrille=g.laGrille.clone();
+    }
+
     public int getPartieFinie(){return this.partieFinie;}
     public boolean getTourner(){return this.tourner;}
     public void setTourner(boolean tourner){this.tourner = tourner;}
