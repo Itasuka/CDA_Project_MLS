@@ -2,14 +2,18 @@ package controleur;
 
 import modele.CoupInvalideException;
 import modele.Joueur;
+import modele.Plateau;
 import vue.Ihm;
 
 public abstract class Controleur {
     protected Ihm leIhm;
+    private Plateau plateau;
     private Joueur j1;
     private Joueur j2;
     private Joueur jCourant;
 
+    public Plateau getPlateau(){return plateau;}
+    public void setPlateau(Plateau plateau){this.plateau = plateau;}
     public void setjCourant(Joueur j){this.jCourant=j;}
 
     public Controleur(Ihm ihm){
