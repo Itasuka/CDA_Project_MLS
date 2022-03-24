@@ -1,13 +1,6 @@
 package controleur;
 
 import vue.Ihm;
-
-public class ControleurPuissanceRobot extends ControleurPuissance{
-    public ControleurPuissanceRobot(Ihm ihm) {
-        super(ihm);
-    }
-
-
 import modele.CoupInvalideException;
 import modele.CoupPuissance4;
 import modele.Grille;
@@ -16,7 +9,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class ControleurPuissanceRobot {
+public class ControleurPuissanceRobot extends ControleurPuissance{
+    public ControleurPuissanceRobot(Ihm ihm) {
+        super(ihm);
+    }
 
     public Grille jouerStrategie() throws CoupInvalideException {
         Grille grilletest = new Grille(laGrille());
