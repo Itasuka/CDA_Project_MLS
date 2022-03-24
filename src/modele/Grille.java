@@ -42,6 +42,25 @@ public class Grille extends Plateau {
         return false;
     }
 
+    public int compteurAlignes(int lD, int cD) {
+        int res = 1;
+        int max = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                res += chercheLaVictoire(lD + i, cD + j, i, j) +
+                        chercheLaVictoire(lD - i, cD - j, -i, -j);
+                max=Integer.max(res, max);
+                if (res>=4){
+                    break;
+                } else {
+                    res=1;
+                }
+            }
+        }
+        return max;
+    }
+
+
     public int chercheLaVictoire(int lD, int cD, int lM, int cM) {
         if (lM == 0 && cM == 0) {
             return 0;
