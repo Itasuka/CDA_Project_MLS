@@ -85,7 +85,7 @@ public class ControleurJeuNim extends Controleur{
      * @param j le joueur qui va jouer
      * @throws CoupInvalideException si le coup est invalide
      */
-    private void faireLeCoup(Joueur j) throws CoupInvalideException {
+    public void faireLeCoup(Joueur j) throws CoupInvalideException {
         String nom = j.getNom();
         String coup = getLeIhm().leCoup(nom,lesTas().getNbMax());
         int numTas = Integer.parseInt(coup.substring(0,coup.length()/2));
@@ -99,7 +99,7 @@ public class ControleurJeuNim extends Controleur{
      * @param nbAll le nombre d'allumettes du coup
      * @return le coup créé
      */
-    private CoupNim creerCoupNim(int numTas, int nbAll) {
+    public CoupNim creerCoupNim(int numTas, int nbAll) {
         return new CoupNim(numTas, nbAll);
     }
 

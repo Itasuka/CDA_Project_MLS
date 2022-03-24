@@ -1,4 +1,11 @@
 package controleur;
 
-public class ControleurPuissanceRobot {
+import vue.Ihm;
+
+public class ControleurPuissanceRobot extends ControleurPuissance{
+    public ControleurPuissanceRobot(Ihm ihm) {
+        super(ihm);
+    }
+
+
 }

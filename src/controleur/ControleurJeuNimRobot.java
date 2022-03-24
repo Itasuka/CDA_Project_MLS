@@ -1,5 +1,6 @@
 package controleur;
 
+import modele.CoupInvalideException;
 import modele.Joueur;
 import modele.Tas;
 import vue.Ihm;
@@ -22,5 +23,16 @@ public class ControleurJeuNimRobot extends ControleurJeuNim {
         return nbTas;
     }
 
-
+    public void faireLeCoup(Joueur j) throws CoupInvalideException {
+        String nom = j.getNom();
+        if (j == getJ1()){
+            String coup = getLeIhm().leCoup(nom,lesTas().getNbMax());
+            int numTas = Integer.parseInt(coup.substring(0,coup.length()/2));
+            int nbAl = Integer.parseInt(coup.substring(coup.length()/2));
+            lesTas().gererCoup(creerCoupNim(numTas, nbAl));
+        }
+        else{
+            jouerStrategie();
+        }
+    }
 }
