@@ -4,6 +4,10 @@ import modele.*;
 import vue.Ihm;
 import vue.IhmPuissance;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
 public class ControleurPuissance extends Controleur {
     private Grille laGrille;
 
@@ -160,5 +164,31 @@ public class ControleurPuissance extends Controleur {
 
     public void etatPartie() {
         getLeIhm().etatPartie(laGrille.toString());
+    }
+
+    public void jouerStrategie() throws CoupInvalideException {
+        Grille grilletest= laGrille;
+        Grille grilledroite=grilletest.pivoterADroite();
+        if (grilletest.getPartieFinie()==2){
+            laGrille.pivoterADroite();
+        }
+        else {
+            Map<Integer, Set<CoupPuissance4>> lesCoups = new TreeMap<Integer, Set<CoupPuissance4>>();
+            for (int i=1; i<8; i++) {
+                Grille grilleneuve=laGrille;
+                CoupPuissance4 lecoup= new CoupPuissance4(i, getJ2().getMonJeton());
+                grilleneuve.gererCoup(lecoup);
+                int nbalignes=grilleneuve.compteurAlignes(getJ2().getMonJeton().getLigne(),getJ2().getMonJeton().getColonne());
+                if (nbalignes==0) {
+                    lesCoups.get(7).add(lecoup);
+                }
+                if (nbalignes==0) {
+                    lesCoups.get(7).add(lecoup);
+                }
+                if (nbalignes==0) {
+                    lesCoups.get(7).add(lecoup);
+                }
+            }
+        }
     }
 }

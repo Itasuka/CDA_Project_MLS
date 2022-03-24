@@ -15,5 +15,6 @@ public class Main {
             ControleurPuissance controleur = new ControleurPuissance(new IhmPuissance(), Ihm.jouerAvecOrdiOuPas());
             controleur.jouer();
         }
+        nnnn
     }
 }
