@@ -4,9 +4,6 @@ import modele.*;
 import vue.Ihm;
 import vue.IhmPuissance;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 public class ControleurPuissance extends Controleur {
 
@@ -21,7 +18,7 @@ public class ControleurPuissance extends Controleur {
         return (IhmPuissance) this.leIhm;
     }
 
-    private void avecOuSansR() {
+    public void avecOuSansR() {
         int choix = getLeIhm().rotation();
         if (choix == 1) {
             laGrille().setTourner(true);
