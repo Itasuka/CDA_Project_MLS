@@ -30,14 +30,6 @@ public abstract class Ihm {
         }
     }
 
-
-    /**
-     * ORDI : Fonction permettant d'afficher que l'ordinateur à jouer
-     */
-    public void lOrdiAJoue(){
-        System.out.println("L'ordinateur a joué !");
-    }
-
     /**
      * Fonction permettant d'afficher le message de l'erreur
      * @param erreur le message d'erreur

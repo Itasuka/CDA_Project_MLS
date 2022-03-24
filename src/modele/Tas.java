@@ -36,6 +36,9 @@ public class Tas extends Plateau {
      */
     public int getNbMax(){return nbMax;}
 
+    public int[] getLesTas(){return lesTas;}
+
+    public Tas(int[] lesTas){this.lesTas = lesTas;}
     /**
      * Fonctionn créant un ensemble de nbTas tas avec 0 allumettes dans chaque tas
      * @param nbTas le nombre de tas de la partie
@@ -88,8 +91,12 @@ public class Tas extends Plateau {
     @Override
     public String toString() {
         String s="";
+        int compteur = 1;
         for (int nbAllumettes : lesTas) {
+            s+= compteur+" ";
+            compteur++;
             for (int i = 1; i <= nbAllumettes; i++) {
+
                 s+="| ";
             }
            s+="\n";

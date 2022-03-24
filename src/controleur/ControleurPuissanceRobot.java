@@ -1,5 +1,13 @@
 package controleur;
 
+import vue.Ihm;
+
+public class ControleurPuissanceRobot extends ControleurPuissance{
+    public ControleurPuissanceRobot(Ihm ihm) {
+        super(ihm);
+    }
+
+
 import modele.CoupInvalideException;
 import modele.CoupPuissance4;
 import modele.Grille;
