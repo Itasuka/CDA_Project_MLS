@@ -4,6 +4,10 @@ import modele.*;
 import vue.Ihm;
 import vue.IhmNim;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class ControleurJeuNim extends Controleur{
     private int nbTas;
 
@@ -161,4 +165,27 @@ public class ControleurJeuNim extends Controleur{
             getLeIhm().egalite(j1.getNbPartiesGagnees());
         }
     }
+
+    private void jouerStrategie() throws CoupInvalideException {
+        List<CoupNim> coupPossible = new ArrayList<>();
+
+        for (int i = 1; i < nbTas; i++) {
+            for (int j = 1; j < 2 * j + 1; j++) {
+                try {
+                    Tas testTas = lesTas();
+                    testTas.gererCoup(creerCoupNim(i,j));
+                    coupPossible.add(creerCoupNim(i,j));
+                }
+                catch(CoupInvalideException e){
+                }
+                Random ran = new Random();
+                int randomInt = ran.nextInt(coupPossible.size());
+                lesTas().gererCoup(coupPossible.get(randomInt));
+
+            }
+
+        }
+    }
+
+
 }
