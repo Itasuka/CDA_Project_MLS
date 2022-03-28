@@ -91,6 +91,6 @@ public class IhmNim extends Ihm {
      * ORDI : Fonction permettant d'afficher que l'ordinateur à jouer
      */
     public void lOrdiAJoue(int tas, int al){
-        System.out.println("L'ordinateur a retiré "+al+" allumettes dans le tas "+tas+" !");
+        System.out.println("\u001B[35m >>>>> L'ordinateur a retiré "+al+" allumettes dans le tas "+tas+" ! <<<<<\u001B[0m");
     }
 }

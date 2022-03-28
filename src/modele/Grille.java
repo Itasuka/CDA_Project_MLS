@@ -3,9 +3,9 @@ package modele;
 
 public class Grille extends Plateau {
     private int tailleGrille;
-    private JetonCouleur[][] laGrille;
+    private final JetonCouleur[][] laGrille;
     private boolean tourner;
-    private int partieFinie;
+    private int partieFinie = 0;
 
     public Grille(int nbCols) {
         this.tailleGrille = nbCols;
@@ -16,12 +16,24 @@ public class Grille extends Plateau {
         this.tailleGrille=g.tailleGrille;
         this.tourner=g.tourner;
         this.partieFinie=g.partieFinie;
-        this.laGrille=g.laGrille.clone();
+        this.laGrille = copierGrille(g);
+    }
+
+    private JetonCouleur[][] copierGrille(Grille g){
+        JetonCouleur[][] res = new JetonCouleur[g.tailleGrille][g.tailleGrille];
+        for(int i = 0; i<g.laGrille.length; i++){
+            res[i] = g.laGrille[i].clone();
+        }
+        return res;
     }
 
     public int getPartieFinie(){return this.partieFinie;}
     public boolean getTourner(){return this.tourner;}
     public void setTourner(boolean tourner){this.tourner = tourner;}
+
+    public boolean colonnePleine(int col){
+        return this.laGrille[0][col] != null;
+    }
 
     public boolean grillePleine() {
         for (int i = 0; i < tailleGrille; i++) {
@@ -58,7 +70,7 @@ public class Grille extends Plateau {
                         chercheLaVictoire(lD - i, cD - j, -i, -j);
                 max=Integer.max(res, max);
                 if (res>=4){
-                    break;
+                    return 4;
                 } else {
                     res=1;
                 }
@@ -104,7 +116,6 @@ public class Grille extends Plateau {
         nvgrille.setTourner(true);
         boolean boolj1=false;
         boolean boolj2=false;
-        int res;
         for (int ligne = tailleGrille - 1; ligne >= 0; ligne--) {
             for (int colonne = tailleGrille - 1; colonne >= 0; colonne--) {
                 if (!(laGrille[ligne][colonne] ==null)) {

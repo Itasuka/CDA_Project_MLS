@@ -69,6 +69,10 @@ public class IhmPuissance extends Ihm {
         }
     }
 
+    public void lOrdiAJoue(String coup){
+        System.out.println("\u001B[35m>>>>> L'ordinateur a "+coup+" <<<<<\u001B[0m");
+    }
+
     /**
      * P4 : Fonction permettant de demander si on veut rejouer quand la grille a été remplie (personne n'a gagné)
      * @return 0 pour non, 1 pour oui

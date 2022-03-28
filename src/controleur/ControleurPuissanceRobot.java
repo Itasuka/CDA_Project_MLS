@@ -16,7 +16,7 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
         setPlateau(new Grille(7));
         avecOuSansR();
         setJ1(new Joueur(getLeIhm().nomJoueur(1), "R"));
-        setJ2(new Joueur("Olerobot", "J"));
+        setJ2(new Joueur("OLeRobot", "J"));
     }
 
     public void faireUnTour(Joueur j) {
@@ -68,31 +68,35 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
                     }
                 }
             }
-        }
-        else if (j == getJ2()){
-            try{
+        } else if (j == getJ2()) {
+            try {
                 jouerStrategie();
+            } catch (CoupInvalideException e) {
             }
-            catch (CoupInvalideException e){}
         }
     }
 
     public Grille jouerStrategie() throws CoupInvalideException {
         Grille grilletest = new Grille(laGrille());
-        grilletest.pivoterADroite();
-        if (grilletest.getPartieFinie() == 2) {
-            return laGrille().pivoterADroite();
-        }
-        grilletest.pivoterAGauche();
-        if (grilletest.getPartieFinie() == 2) {
-            return laGrille().pivoterAGauche();
-        } else {
-            Map<Integer, HashSet<CoupPuissance4>> lesCoupsMap = new TreeMap<>();
-            for (int i = 1; i<8; i++){
-                lesCoupsMap.put(i,new HashSet<>());
+        if (laGrille().getTourner() && getJ2().getNbRotations() >= 0) {
+            grilletest.pivoterADroite();
+            if (grilletest.getPartieFinie() == 2) {
+                getLeIhm().lOrdiAJoue("pivoté à droite.");
+                return laGrille().pivoterADroite();
             }
-            for (int i = 1; i < 8; i++) {
-                grilletest = new Grille(laGrille());
+            grilletest.pivoterAGauche();
+            if (grilletest.getPartieFinie() == 2) {
+                getLeIhm().lOrdiAJoue("pivoté à gauche.");
+                return laGrille().pivoterAGauche();
+            }
+        }
+        Map<Integer, HashSet<CoupPuissance4>> lesCoupsMap = new TreeMap<>();
+        for (int i = 1; i < 8; i++) {
+            lesCoupsMap.put(i, new HashSet<>());
+        }
+        for (int i = 1; i < 8; i++) {
+            grilletest = new Grille(laGrille());
+            if (!grilletest.colonnePleine(i - 1)) {
                 CoupPuissance4 lecoup = new CoupPuissance4(i, getJ2().getMonJeton());
                 grilletest.gererCoup(lecoup);
                 int nbalignes = grilletest.compteurAlignes(getJ2().getMonJeton().getLigne(), getJ2().getMonJeton().getColonne());
@@ -110,43 +114,55 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
                     lesCoupsMap.get(7).add(lecoup);
                 }
             }
-            for (int i = 1; i < 8; i++) {
-                grilletest = new Grille(laGrille());
+        }
+        for (int i = 1; i < 8; i++) {
+            grilletest = new Grille(laGrille());
+            if (!grilletest.colonnePleine(i - 1)) {
                 CoupPuissance4 lecoup = new CoupPuissance4(i, getJ1().getMonJeton());
                 grilletest.gererCoup(lecoup);
-                int nbalignes = grilletest.compteurAlignes(getJ2().getMonJeton().getLigne(), getJ2().getMonJeton().getColonne());
+                int nbalignes = grilletest.compteurAlignes(getJ1().getMonJeton().getLigne(), getJ1().getMonJeton().getColonne());
                 CoupPuissance4 lecoupordi = new CoupPuissance4(i, getJ2().getMonJeton());
                 if (nbalignes == 2) {
-                    lesCoupsMap.get(3).add(lecoupordi);
+                    lesCoupsMap.get(2).add(lecoupordi);
                 }
                 if (nbalignes == 3) {
-                    lesCoupsMap.get(5).add(lecoup);
+                    lesCoupsMap.get(4).add(lecoupordi);
                 }
                 if (nbalignes == 4) {
-                    lesCoupsMap.get(7).add(lecoup);
+                    lesCoupsMap.get(6).add(lecoupordi);
                 }
             }
-            for (int i = 7; i > 0; i--) {
-                Set<CoupPuissance4> lesCoups = lesCoupsMap.get(i);
-                if ((i == 7) && lesCoups != null) {
-                    for (CoupPuissance4 leCoup : lesCoups) {
-                        laGrille().gererCoup(leCoup);
-                        break;
-                    }
+        }
+        for (int i = 7; i > 0; i--) {
+            Set<CoupPuissance4> lesCoups = lesCoupsMap.get(i);
+            if ((i == 7) && lesCoups.size() != 0) {
+                for (CoupPuissance4 leCoup : lesCoups) {
+                    getLeIhm().lOrdiAJoue("placé un jeton dans la colonne " + leCoup.getCol());
+                    laGrille().gererCoup(leCoup);
                     break;
-                } else {
-                    for (CoupPuissance4 leCoup : lesCoups) {
-                        grilletest = new Grille(laGrille());
-                        grilletest.gererCoup(leCoup);
+                }
+                break;
+            } else {
+                for (CoupPuissance4 leCoup : lesCoups) {
+                    grilletest = new Grille(laGrille());
+                    grilletest.gererCoup(leCoup);
+                    if (laGrille().getTourner() && getJ1().getNbRotations() >= 0) {
+                        System.out.println("ahaha");
                         grilletest.pivoterADroite();
                         if (!(grilletest.getPartieFinie() == 1)) {
                             grilletest.pivoterAGauche();
                             if (!(grilletest.getPartieFinie() == 1)) {
+                                getLeIhm().lOrdiAJoue("placé un jeton dans la colonne " + leCoup.getCol());
                                 laGrille().gererCoup(leCoup);
                                 return laGrille();
                             }
                         }
+                    } else {
+                        getLeIhm().lOrdiAJoue("placé un jeton dans la colonne " + leCoup.getCol());
+                        laGrille().gererCoup(leCoup);
+                        return laGrille();
                     }
+
                 }
             }
         }

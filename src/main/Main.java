@@ -24,8 +24,11 @@ public class Main {
                 ControleurPuissanceRobot controleur = new ControleurPuissanceRobot(new IhmPuissance());
                 controleur.jouer();
             }
-            ControleurPuissance controleur = new ControleurPuissance(new IhmPuissance());
-            controleur.jouer();
+            else{
+                ControleurPuissance controleur = new ControleurPuissance(new IhmPuissance());
+                controleur.jouer();
+            }
+
         }
 
     }

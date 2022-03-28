@@ -24,7 +24,7 @@ public class ControleurJeuNimRobot extends ControleurJeuNim {
         lesTas().initialiser();
         lesTas().setNbMax(choixContrainte());
         setJ1(new Joueur(getLeIhm().nomJoueur(1)));
-        setJ2(new Joueur("Olerobot"));
+        setJ2(new Joueur("OLeRobot"));
         return nbTas;
     }
 
