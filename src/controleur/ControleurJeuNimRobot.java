@@ -16,7 +16,7 @@ public class ControleurJeuNimRobot extends ControleurJeuNim {
         super( ihm);
     }
 
-    public IhmNimRobot getLeIhm() { return (IhmNimRobot) leIhm;}
+    public IhmNimRobot getLeIhm() { return (IhmNimRobot) this.leIhm;}
 
     public int creerPartie(){
         int nbTas = 0;

@@ -11,7 +11,7 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
         super(ihm);
     }
 
-    public IhmPuissanceRobot getLeIhm() { return (IhmPuissanceRobot) leIhm;}
+    public IhmPuissanceRobot getLeIhm() { return (IhmPuissanceRobot) this.leIhm;}
 
     public void init() {
         setJ1(new Joueur("", ""));
