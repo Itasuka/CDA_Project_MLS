@@ -147,7 +147,6 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
                     grilletest = new Grille(laGrille());
                     grilletest.gererCoup(leCoup);
                     if (laGrille().getTourner() && getJ1().getNbRotations() >= 0) {
-                        System.out.println("ahaha");
                         grilletest.pivoterADroite();
                         if (!(grilletest.getPartieFinie() == 1)) {
                             grilletest.pivoterAGauche();
