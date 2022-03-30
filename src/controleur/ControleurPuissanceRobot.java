@@ -2,6 +2,7 @@ package controleur;
 
 import modele.*;
 import vue.Ihm;
+import vue.IhmPuissanceRobot;
 
 import java.util.*;
 
@@ -9,6 +10,8 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
     public ControleurPuissanceRobot(Ihm ihm) {
         super(ihm);
     }
+
+    public IhmPuissanceRobot getLeIhm() { return (IhmPuissanceRobot) this.leIhm;}
 
     public void init() {
         setJ1(new Joueur("", ""));

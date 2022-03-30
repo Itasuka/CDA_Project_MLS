@@ -3,15 +3,13 @@ import controleur.ControleurJeuNim;
 import controleur.ControleurJeuNimRobot;
 import controleur.ControleurPuissance;
 import controleur.ControleurPuissanceRobot;
-import vue.Ihm;
-import vue.IhmNim;
-import vue.IhmPuissance;
+import vue.*;
 
 public class Main {
     public static void main(String[] args) {
         if (Ihm.choixJeu()==0){
             if (Ihm.jouerAvecOrdiOuPas()){
-                ControleurJeuNimRobot controleur = new ControleurJeuNimRobot(new IhmNim());
+                ControleurJeuNimRobot controleur = new ControleurJeuNimRobot(new IhmNimRobot());
                 controleur.jouer();
             }
             else{
@@ -21,7 +19,7 @@ public class Main {
         }
         else{
             if (Ihm.jouerAvecOrdiOuPas()){
-                ControleurPuissanceRobot controleur = new ControleurPuissanceRobot(new IhmPuissance());
+                ControleurPuissanceRobot controleur = new ControleurPuissanceRobot(new IhmPuissanceRobot());
                 controleur.jouer();
             }
             else{

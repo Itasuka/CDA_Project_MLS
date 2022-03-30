@@ -11,9 +11,4 @@ public class CoupPuissance4 extends Coup{
 
     public int getCol(){return col;}
     public JetonCouleur getJeton(){return jeton;}
-
-    @Override
-    public String toString(){
-        return "colonne "+col+" couleur "+jeton.getCouleur();
-    }
 }

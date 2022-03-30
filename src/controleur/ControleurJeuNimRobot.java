@@ -5,6 +5,7 @@ import modele.CoupNim;
 import modele.Joueur;
 import modele.Tas;
 import vue.Ihm;
+import vue.IhmNimRobot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,10 @@ import java.util.Random;
 
 public class ControleurJeuNimRobot extends ControleurJeuNim {
     public ControleurJeuNimRobot(Ihm ihm) {
-        super(ihm);
+        super( ihm);
     }
+
+    public IhmNimRobot getLeIhm() { return (IhmNimRobot) this.leIhm;}
 
     public int creerPartie(){
         int nbTas = 0;
