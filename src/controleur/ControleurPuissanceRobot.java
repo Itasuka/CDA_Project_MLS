@@ -79,18 +79,23 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
         }
     }
 
-    public Grille jouerStrategie() throws CoupInvalideException {
+    public boolean jouerStrategie() throws CoupInvalideException {
         Grille grilletest = new Grille(laGrille());
         if (laGrille().getTourner() && getJ2().getNbRotations() >= 0) {
-            grilletest.pivoterADroite();
+             grilletest = grilletest.pivoterADroite();
             if (grilletest.getPartieFinie() == 2) {
                 getLeIhm().lOrdiAJoue("pivoté à droite.");
-                return laGrille().pivoterADroite();
+                getJ2().faitRotation();
+                setPlateau(laGrille().pivoterADroite());
+                return true;
             }
-            grilletest.pivoterAGauche();
+            grilletest = new Grille(laGrille());
+            grilletest = grilletest.pivoterAGauche();
             if (grilletest.getPartieFinie() == 2) {
                 getLeIhm().lOrdiAJoue("pivoté à gauche.");
-                return laGrille().pivoterAGauche();
+                getJ2().faitRotation();
+                setPlateau(laGrille().pivoterAGauche());
+                return true;
             }
         }
         Map<Integer, HashSet<CoupPuissance4>> lesCoupsMap = new TreeMap<>();
@@ -146,28 +151,33 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
                 }
                 break;
             } else {
+                List<CoupPuissance4> lesCoupsValide = new ArrayList<>();
                 for (CoupPuissance4 leCoup : lesCoups) {
                     grilletest = new Grille(laGrille());
                     grilletest.gererCoup(leCoup);
                     if (laGrille().getTourner() && getJ1().getNbRotations() >= 0) {
-                        grilletest.pivoterADroite();
+                        grilletest = grilletest.pivoterADroite();
                         if (!(grilletest.getPartieFinie() == 1)) {
-                            grilletest.pivoterAGauche();
+                            grilletest = new Grille(laGrille());
+                            grilletest = grilletest.pivoterAGauche();
                             if (!(grilletest.getPartieFinie() == 1)) {
-                                getLeIhm().lOrdiAJoue("placé un jeton dans la colonne " + leCoup.getCol());
-                                laGrille().gererCoup(leCoup);
-                                return laGrille();
+                                lesCoupsValide.add(leCoup);
                             }
                         }
                     } else {
-                        getLeIhm().lOrdiAJoue("placé un jeton dans la colonne " + leCoup.getCol());
-                        laGrille().gererCoup(leCoup);
-                        return laGrille();
+                        lesCoupsValide.add(leCoup);
                     }
-
+                }
+                if(lesCoupsValide.size()!=0){
+                    Random ran = new Random();
+                    int coupAleatoire = ran.nextInt(lesCoups.size());
+                    CoupPuissance4 coup = lesCoupsValide.get(coupAleatoire);
+                    getLeIhm().lOrdiAJoue("placé un jeton dans la colonne " + coup.getCol());
+                    laGrille().gererCoup(coup);
+                    return true;
                 }
             }
         }
-        return laGrille();
+        return false;
     }
 }
