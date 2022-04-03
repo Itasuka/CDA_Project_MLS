@@ -76,10 +76,12 @@ public class IhmNim extends Ihm {
         while (true) {
             if (sc.hasNextInt()) {
                 int numTas = sc.nextInt();
-                if (sc.hasNextInt()) {
-                    int nbAl = sc.nextInt();
-                    sc.nextLine();
-                    return String.valueOf(numTas) + String.valueOf(nbAl);
+                if (numTas>0){
+                    if (sc.hasNextInt()) {
+                        int nbAl = sc.nextInt();
+                        sc.nextLine();
+                        return String.valueOf(numTas) + String.valueOf(nbAl);
+                    }
                 }
             }
             System.out.println("Le coup est invalide, rejouez");
