@@ -9,8 +9,8 @@ import java.util.*;
 
 public class StrategieElaboree implements Strategie {
 
-    private IhmPuissanceRobot ihm;
-    private ControleurPuissanceRobot ctl;
+    private final IhmPuissanceRobot ihm;
+    private final ControleurPuissanceRobot ctl;
 
     public StrategieElaboree(IhmPuissanceRobot ihm, ControleurPuissanceRobot ctl) {
         this.ihm = ihm;
@@ -23,13 +23,12 @@ public class StrategieElaboree implements Strategie {
 
     @Override
     public void jouerStrategie() throws CoupInvalideException {
-        Grille grilletest = new Grille(ctl.laGrille());
         Map<Integer, ArrayList<CoupPuissance4>> lesCoupsMap = new TreeMap<>();
         for (int i = 1; i < 8; i++) {
             lesCoupsMap.put(i, new ArrayList<>());
         }
         for (int i = 1; i < 8; i++) {
-            grilletest = new Grille(ctl.laGrille());
+            Grille grilletest = new Grille(ctl.laGrille());
             if (!grilletest.colonnePleine(i - 1)) {
                 CoupPuissance4 lecoup = new CoupPuissance4(i, ctl.getJ2().getMonJeton());
                 grilletest.gererCoup(lecoup);
@@ -70,7 +69,7 @@ public class StrategieElaboree implements Strategie {
             }
         }
         for (int i = 1; i < 8; i++) {
-            grilletest = new Grille(ctl.laGrille());
+            Grille grilletest = new Grille(ctl.laGrille());
             if (!grilletest.colonnePleine(i - 1)) {
                 CoupPuissance4 lecoup = new CoupPuissance4(i, ctl.getJ1().getMonJeton());
                 grilletest.gererCoup(lecoup);

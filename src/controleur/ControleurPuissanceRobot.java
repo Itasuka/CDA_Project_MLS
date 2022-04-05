@@ -17,12 +17,8 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
         return (IhmPuissanceRobot) this.leIhm;
     }
 
-    public void setLaStratRotation() {
-        lastrat = new StrategieRotation(getLeIhm(), this);
-    }
-
-    public void setLaStratElaboree() {
-        lastrat = new StrategieElaboree(getLeIhm(),this);
+    public void setLaStrat(Strategie strat) {
+        lastrat =strat;
     }
 
     public void init() {
@@ -38,12 +34,12 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
         int choix = getLeIhm().rotation();
         if (choix == 1) {
             laGrille().setTourner(true);
-            setLaStratRotation();
+            setLaStrat(new StrategieRotation(getLeIhm(),this));
             getJ1().setNbRotations(4);
             getJ2().setNbRotations(4);
         } else {
             laGrille().setTourner(false);
-            setLaStratElaboree();
+            setLaStrat(new StrategieElaboree(getLeIhm(),this));
         }
     }
 
