@@ -180,7 +180,7 @@ public class ControleurPuissanceRobot extends ControleurPuissance {
                     }
                     if (lesCoupsValide.size() != 0) {
                         Random ran = new Random();
-                        int coupAleatoire = ran.nextInt(lesCoups.size());
+                        int coupAleatoire = ran.nextInt(lesCoupsValide.size());
                         CoupPuissance4 coup = lesCoupsValide.get(coupAleatoire);
                         getLeIhm().lOrdiAJoue("placé un jeton dans la colonne " + coup.getCol());
                         laGrille().gererCoup(coup);
