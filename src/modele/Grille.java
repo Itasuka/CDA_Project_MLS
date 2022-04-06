@@ -30,6 +30,8 @@ public class Grille extends Plateau {
     public int getPartieFinie(){return this.partieFinie;}
     public boolean getTourner(){return this.tourner;}
     public void setTourner(boolean tourner){this.tourner = tourner;}
+    public int getTailleGrille() {return tailleGrille;}
+    public JetonCouleur[][] getLaGrille() {return laGrille;}
 
     public boolean colonnePleine(int col){
         return this.laGrille[0][col] != null;
